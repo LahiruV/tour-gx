@@ -11,12 +11,18 @@ interface DropdownProps {
 
 export const Dropdown = ({ label, options, value, onChange }: DropdownProps) => {
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth size="small">
       <InputLabel>{label}</InputLabel>
       <Select
         value={value}
         label={label}
         onChange={(e) => onChange(e.target.value)}
+        sx={{
+          backgroundColor: 'white',
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: 'none'
+          }
+        }}
       >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>

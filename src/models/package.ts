@@ -7,6 +7,17 @@ export interface Package {
   duration: string;
   groupSize: string;
   startDate: string;
+  hotels: Hotel[];
+}
+
+export interface Hotel {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  rating: number;
+  price: number;
+  amenities: string[];
 }
 
 export interface PackageFilters {

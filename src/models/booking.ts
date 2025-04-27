@@ -3,10 +3,11 @@ export interface BookingFormData {
   lastName: string;
   email: string;
   phone: string;
+  hotelId: string;
   travelDate: string;
   adults: number;
   children: number;
-  includeMeals: boolean;
+  mealPlan: 'bb' | 'hb' | 'fb';
   includeTransport: boolean;
   includeAccommodation: boolean;
   specialRequests?: string;
@@ -15,6 +16,9 @@ export interface BookingFormData {
 export interface BookingFormProps {
   packageId: string;
   packageName: string;
+  packageData: {
+    hotels: Hotel[];
+  };
   onSubmit: (data: BookingFormData) => Promise<void>;
   isLoading?: boolean;
 }

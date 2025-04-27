@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@zenra/widgets';
 import { MapPinIcon, BuildingOffice2Icon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { LocationMapModal } from './LocationMapModal';
 import i18n from '../../i18n';
 
@@ -15,6 +15,11 @@ export const DestinationCard = ({ id, image }: DestinationCardProps) => {
   const { t } = useTranslation();
   const location = `destinations.locations.${id}`;
   const [isMapOpen, setIsMapOpen] = useState(false);
+
+  const categories = useMemo(() => {
+    const value = t(`${location}.categories`, { returnObjects: true });
+    return Array.isArray(value) ? value : [];
+  }, [t, location]);
 
   const getTranslatedArray = (key: string): string[] => {
     const value = t(`${location}.${key}`, { returnObjects: true });
@@ -38,6 +43,16 @@ export const DestinationCard = ({ id, image }: DestinationCardProps) => {
           <div>
             <h2 className="text-2xl font-bold text-gray-900">{t(`${location}.name`)}</h2>
             <p className="text-blue-600">{t(`${location}.region`)}</p>
+            <div className="flex flex-wrap gap-1 mt-2">
+              {categories.map((category: string, index: number) => (
+                <span
+                  key={index}
+                  className="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                >
+                  {category}
+                </span>
+              ))}
+            </div>
           </div>
           <span className="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
             {t(`${location}.bestTime`)}

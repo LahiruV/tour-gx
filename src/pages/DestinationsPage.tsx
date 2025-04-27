@@ -4,6 +4,12 @@ import { DestinationHero, DestinationGrid } from '@zenra/components';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 
+interface Filters {
+  province: string;
+  category: string;
+  season: string;
+}
+
 const destinationIds = [
   {
     id: 'mirissa',
@@ -77,7 +83,11 @@ const destinationIds = [
 ];
 
 export const DestinationsPage = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState<Filters>({
+    province: 'all',
+    category: 'all',
+    season: 'all'
+  });
   const { t } = useTranslation();
   const location = useLocation();
 
@@ -91,17 +101,56 @@ export const DestinationsPage = () => {
     }
   }, [location.state]);
 
-  const filteredDestinations = destinationIds.filter(destination =>
-    t(`destinations.locations.${destination.id}.name`).toLowerCase().includes(searchQuery.toLowerCase()) ||
-    t(`destinations.locations.${destination.id}.region`).toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredDestinations = destinationIds.filter(destination => {
+    const locationData = {
+      region: t(`destinations.locations.${destination.id}.region`),
+      categories: t(`destinations.locations.${destination.id}.categories`, { returnObjects: true }) as string[],
+      bestTime: t(`destinations.locations.${destination.id}.bestTime`).toLowerCase()
+    };
+
+    if (filters.province !== 'all') {
+      const province = filters.province.replace('-', ' ');
+      if (!locationData.region.toLowerCase().includes(province)) {
+        return false;
+      }
+    }
+
+    if (filters.category !== 'all') {
+      if (!locationData.categories.some(cat => cat.toLowerCase() === filters.category)) {
+        return false;
+      }
+    }
+
+    if (filters.season !== 'all') {
+      const seasonMap = {
+        'dec-mar': ['december', 'january', 'february', 'march'],
+        'apr-may': ['april', 'may'],
+        'jun-sep': ['june', 'july', 'august', 'september'],
+        'oct-nov': ['october', 'november']
+      };
+      
+      const months = seasonMap[filters.season as keyof typeof seasonMap];
+      if (!months.some(month => locationData.bestTime.includes(month))) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+
+  const handleFilterChange = (key: keyof Filters, value: string) => {
+    setFilters(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
 
   return (
     <PageTransition>
       <div className="min-h-screen bg-gray-50">
         <DestinationHero
-          searchQuery={searchQuery}
-          onSearchChange={(value) => setSearchQuery(value)}
+          filters={filters}
+          onFilterChange={handleFilterChange}
         />
         <DestinationGrid destinations={filteredDestinations} />
       </div>

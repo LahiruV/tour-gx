@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Modal } from '@zenra/widgets';
 import { CalendarDaysIcon, ClockIcon, UserGroupIcon } from '@heroicons/react/24/outline';
-import { Package, BookingFormData } from '@zenra/models';
+import { Package, BookingFormData, Hotel } from '@zenra/models';
 import { useTranslation } from 'react-i18next';
 import { BookingForm } from './BookingForm';
 
@@ -14,6 +14,7 @@ export const PackageCard = ({
   duration,
   groupSize,
   startDate,
+  hotels = [],
 }: Package) => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const { t } = useTranslation();
@@ -78,6 +79,7 @@ export const PackageCard = ({
       <BookingForm
         packageId={id}
         packageName={title}
+        packageData={{ hotels }}
         onSubmit={handleBooking}
       />
     </Modal>
