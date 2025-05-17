@@ -1,15 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
-import { LoginCredentials, RegisterCredentials, DefaultResponse } from '@zenra/models';
+import { LoginCredentials, RegisterCredentials, AuthResponse } from '@zenra/models';
 import axios, { AxiosError } from 'axios';
 
 
 export const useLogin = () => {
   const { mutate: loginMutate } = useMutation({
     mutationFn: async (payload: LoginCredentials) => {
-      const response = await axios.post<DefaultResponse>(`${import.meta.env.VITE_API_URL}/auth/login`, payload);
+      const response = await axios.post<AuthResponse>(`${import.meta.env.VITE_API_URL}/auth/login`, payload);
       return response.data;
     },
-    onSuccess: (response: DefaultResponse) => response,
+    onSuccess: (response: AuthResponse) => response,
     onError: (err: AxiosError) => err,
   });
   return {
@@ -21,10 +21,10 @@ export const useLogin = () => {
 export const useRegister = () => {
   const { mutate: registerMutate } = useMutation({
     mutationFn: async (payload: RegisterCredentials) => {
-      const response = await axios.post<DefaultResponse>(`${import.meta.env.VITE_API_URL}/auth/register`, payload);
+      const response = await axios.post<AuthResponse>(`${import.meta.env.VITE_API_URL}/auth/register`, payload);
       return response.data;
     },
-    onSuccess: (response: DefaultResponse) => response,
+    onSuccess: (response: AuthResponse) => response,
     onError: (err: AxiosError) => err,
   });
   return {
