@@ -58,9 +58,9 @@ export const DestinationCard = ({ id, image }: DestinationCardProps) => {
             {t(`${location}.bestTime`)}
           </span>
         </div>
-        
+
         <p className="text-gray-600 mb-6">{t(`${location}.description`)}</p>
-        
+
         <div className="mb-6 flex-grow">
           <h3 className="font-semibold text-gray-900 mb-2">{t(`destinations.sections.highlights`)}</h3>
           <div className="flex flex-wrap gap-2">
@@ -74,7 +74,7 @@ export const DestinationCard = ({ id, image }: DestinationCardProps) => {
             ))}
           </div>
         </div>
-        
+
         <div className="mb-6">
           <h3 className="font-semibold text-gray-900 mb-2">{t(`destinations.sections.activities`)}</h3>
           <div className="flex flex-wrap gap-2">
@@ -88,7 +88,7 @@ export const DestinationCard = ({ id, image }: DestinationCardProps) => {
             ))}
           </div>
         </div>
-        
+
         <div className="pt-6 border-t border-gray-200">
           <div className="flex gap-2 flex-wrap">
             <Button
@@ -98,17 +98,6 @@ export const DestinationCard = ({ id, image }: DestinationCardProps) => {
               onClick={() => setIsMapOpen(true)}
             >
               {t('destinations.viewLocation')}
-            </Button>
-            <Button
-              variant="outline"
-              className="flex-1 min-w-[120px]"
-              startIcon={<BuildingOffice2Icon className="h-5 w-5" />}
-              onClick={() => {
-                const lang = i18n.language;
-                window.open(`https://www.booking.com/searchresults.${lang === 'en' ? 'en-gb' : lang}.html?ss=${t(`destinations.locations.${id}.name`, { lng: 'en' })}%2C+Sri+Lanka`, '_blank');
-              }}
-            >
-              {t('destinations.viewHotels')}
             </Button>
           </div>
         </div>

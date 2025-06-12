@@ -1,1 +1,1 @@
-export const COMPANY_NAME = 'Zenra Tours';
+export const COMPANY_NAME = 'Elishiya Tours & Travels';

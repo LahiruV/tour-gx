@@ -39,7 +39,7 @@ export const contact = {
     },
     languages: {
       label: 'Languages',
-      value: 'English, French, German, Russian, Chinese, Japanese, Spanish, Hindi'
+      value: 'English'
     }
   },
   features: {
