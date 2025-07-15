@@ -1,0 +1,55 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EventEase</title>
+</head>
+
+<body>
+    <h1>EventEase - Find Events and Book Tickets</h1>
+    <div>
+        <input type="text" id="locationInput" placeholder="Enter location" />
+        <button onclick="searchEvents()">Search</button>
+    </div>
+    <div id="eventResults"></div>
+
+    <script>
+        async function searchEvents() {
+            const location = document.getElementById('locationInput').value;
+            const response = await fetch(`/api/events?location=${location}`);
+            const events = await response.json();
+            const container = document.getElementById('eventResults');
+            container.innerHTML = '';
+            for (let event of events) {
+                const eventDiv = document.createElement('div');
+                eventDiv.innerHTML = `<h3>${event.name}</h3><p>${event.description}</p>`;
+                const ticketRes = await fetch(`/api/events/${event.id}/tickets`);
+                const tickets = await ticketRes.json();
+                for (let ticket of tickets) {
+                    const bookBtn = document.createElement('button');
+                    bookBtn.innerText = `Book ${ticket.ticketType} - $${ticket.price}`;
+                    bookBtn.onclick = () => bookTicket(event.id, ticket.ticketType);
+                    eventDiv.appendChild(bookBtn);
+                }
+                container.appendChild(eventDiv);
+            }
+        }
+
+        async function bookTicket(eventID, ticketType) {
+            const username = prompt('Enter your username');
+            const quantity = parseInt(prompt('How many tickets?'));
+            const response = await fetch('/api/book', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ eventID, ticketType, quantity, username })
+            });
+            const result = await response.json();
+            alert(result.message || result.error);
+        }
+    </script>
+</body>
+
+</html>
