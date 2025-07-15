@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { TextField, Button } from '@zenra/widgets';
 import { EnvelopeIcon, PhoneIcon, UserIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
+import { Rating } from '@mui/material';
 
 interface FormData {
   name: string;
   email: string;
   phone: string;
   message: string;
+  serviceRating?: number;
 }
 
 export const ContactForm = () => {
@@ -16,12 +18,20 @@ export const ContactForm = () => {
     name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
+    serviceRating: 0.5
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      message: '',
+      serviceRating: 0.5
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -29,6 +39,13 @@ export const ContactForm = () => {
     setFormData(prev => ({
       ...prev,
       [name]: value
+    }));
+  };
+
+  const handleRatingChange = (event: React.ChangeEvent<{}>, newValue: number | null) => {
+    setFormData(prev => ({
+      ...prev,
+      serviceRating: newValue ?? 1
     }));
   };
 
@@ -67,6 +84,19 @@ export const ContactForm = () => {
           startIcon={<PhoneIcon className="h-5 w-5" />}
         />
 
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-2">
+            {t('contact.form.rate')}
+          </label>
+          <Rating
+            className='pl-2'
+            name="serviceRating"
+            value={formData.serviceRating}
+            onChange={handleRatingChange}
+            precision={0.5}
+          />
+        </div>
+
         <TextField
           label={t('contact.form.message.label')}
           name="message"
@@ -79,7 +109,7 @@ export const ContactForm = () => {
         />
 
         <Button
-          style={{ marginTop: '90px' }}
+          style={{ marginTop: '40px' }}
           type="submit"
           variant="primary"
           size="large"
@@ -87,6 +117,7 @@ export const ContactForm = () => {
         >
           {t('contact.form.submit')}
         </Button>
+
       </form>
     </div>
   );

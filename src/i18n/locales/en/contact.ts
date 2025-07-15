@@ -5,15 +5,16 @@ export const contact = {
   },
   description: 'Whether you\'re dreaming of pristine beaches, ancient temples, or wildlife safaris, our travel experts are here to help create your perfect journey',
   form: {
-    title: 'Send us a Message',
+    title: 'Send us a Feedback',
     name: 'Full Name',
     email: 'Email',
     phone: 'Phone',
     message: {
       label: 'Message',
-      placeholder: 'Tell us about your travel plans and any specific requirements'
+      placeholder: 'Tell us about your travel experiences and how we can improve',
     },
-    submit: 'Send Message'
+    rate: 'Rate our service',
+    submit: 'Send Feedback'
   },
   info: {
     title: 'Our Contact Information',
