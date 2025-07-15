@@ -4,7 +4,7 @@ import { EnvelopeIcon, PhoneIcon, UserIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import { Rating } from '@mui/material';
 
-interface FormData {
+export interface FormData {
   name: string;
   email: string;
   phone: string;
