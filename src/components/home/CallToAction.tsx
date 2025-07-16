@@ -37,7 +37,7 @@ export const CallToAction = () => {
         playsInline
         onLoadedData={() => setIsVideoLoaded(true)}
       >
-        <source src="https://videos.pexels.com/video-files/4611986/4611986-uhd_2560_1440_30fps.mp4" type="video/mp4" />
+        <source src="../../../public/videos/4611986-uhd_2560_1440_30fps.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black bg-opacity-60" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-16">

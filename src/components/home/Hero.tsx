@@ -32,7 +32,7 @@ export const Hero = () => {
         playsInline
         onLoadedData={() => setIsVideoLoaded(true)}
       >
-        <source src="https://videos.pexels.com/video-files/2187246/2187246-uhd_2560_1440_30fps.mp4" type="video/mp4" />
+        <source src="../../../public/videos/2187246-uhd_2560_1440_30fps.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black bg-opacity-50" />
       <motion.div

@@ -14,7 +14,7 @@ export const AboutHero = () => {
   }, []);
 
   return (
-    <div 
+    <div
       className="relative h-[400px] overflow-hidden"
     >
       <video
@@ -26,11 +26,11 @@ export const AboutHero = () => {
         playsInline
         onLoadedData={() => setIsVideoLoaded(true)}
       >
-        <source src="https://cdn.pixabay.com/video/2023/11/29/191283-889685028_large.mp4" type="video/mp4" />
+        <source src="../../../public/videos/191283-889685028_large.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black bg-opacity-50" />
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4 max-w-6xl mx-auto">
-        <motion.h1 
+        <motion.h1
           className="text-4xl md:text-5xl font-bold mb-4 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVideoLoaded ? 1 : 0, y: isVideoLoaded ? 0 : 20 }}
@@ -38,7 +38,7 @@ export const AboutHero = () => {
         >
           {t('about.hero.title')}
         </motion.h1>
-        <motion.p 
+        <motion.p
           className="text-xl text-center max-w-2xl"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isVideoLoaded ? 1 : 0, y: isVideoLoaded ? 0 : 20 }}
