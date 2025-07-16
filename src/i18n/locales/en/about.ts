@@ -24,7 +24,7 @@ export const about = {
   story: {
     title: 'Our Story',
     content: [
-      'Founded by Lahiru Vimukthi, Elishiya Tours & Travels emerged from a vision to revolutionize Sri Lankan tourism by creating a comprehensive digital platform that simplifies travel planning and enhances the visitor experience. What began as a dream to showcase Sri Lanka\'s beauty to the world has evolved into a full-service travel technology company.',
+      'Founded by Lahiru Madawa Classen, Elishiya Tours & Travels emerged from a vision to revolutionize Sri Lankan tourism by creating a comprehensive digital platform that simplifies travel planning and enhances the visitor experience. What began as a dream to showcase Sri Lanka\'s beauty to the world has evolved into a full-service travel technology company.',
       'Our innovative approach combines traditional Sri Lankan hospitality with modern technology, making it easier for international travelers to discover, plan, and experience everything our beautiful island has to offer - from accommodation bookings to adventure activities, transportation services to cultural experiences.'
     ]
   },
@@ -60,7 +60,7 @@ export const about = {
     title: 'Leadership',
     members: {
       ceo: {
-        name: 'Lahiru Vimukthi',
+        name: 'Lahiru Madawa Classen',
         role: 'Founder & CEO',
         description: 'A visionary entrepreneur passionate about showcasing Sri Lanka\'s beauty to the world through innovative travel solutions. With extensive experience in tourism and technology, Lahiru leads Elishiya Tours & Travels in revolutionizing how travelers experience Sri Lanka.'
       }

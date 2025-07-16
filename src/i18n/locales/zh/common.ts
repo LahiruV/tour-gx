@@ -31,8 +31,8 @@ export const common = {
     },
     contact: {
       title: '联系信息',
-      email: '邮箱: lahiruvimukthi292@gmail.com',
-      phone: '电话: +94 77 892 3789',
+      email: '邮箱: lahiruclassen56@gmail.com',
+      phone: '电话: +94 74 386 2361',
       address: '地址: 科伦坡，斯里兰卡'
     },
     rights: '版权所有。'

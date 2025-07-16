@@ -29,8 +29,8 @@ export const common = {
     },
     contact: {
       title: 'Контактная информация',
-      email: 'Email: lahiruvimukthi292@gmail.com',
-      phone: 'Телефон: +94 77 892 3789',
+      email: 'Email: lahiruclassen56@gmail.com',
+      phone: 'Телефон: +94 74 386 2361',
       address: 'Адрес: Коломбо, Шри-Ланка'
     },
     rights: 'Все права защищены.'

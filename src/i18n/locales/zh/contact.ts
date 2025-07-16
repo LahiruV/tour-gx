@@ -28,8 +28,8 @@ export const contact = {
     },
     email: {
       label: '电子邮件',
-      bookings: '预订: lahiruvimukthi292@gmail.com',
-      support: '支持: lahiruvimukthi292@gmail.com'
+      bookings: '预订: lahiruclassen56@gmail.com',
+      support: '支持: lahiruclassen56@gmail.com'
     },
     hours: {
       label: '营业时间',

@@ -31,8 +31,8 @@ export const common = {
     },
     contact: {
       title: '連絡先情報',
-      email: 'メール: lahiruvimukthi292@gmail.com',
-      phone: '電話: +94 77 892 3789',
+      email: 'メール: lahiruclassen56@gmail.com',
+      phone: '電話: +94 74 386 2361',
       address: '住所: コロンボ、スリランカ'
     },
     rights: 'すべての権利を保有。'

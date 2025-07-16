@@ -28,8 +28,8 @@ export const contact = {
     },
     email: {
       label: 'メールアドレス',
-      bookings: '予約: lahiruvimukthi292@gmail.com',
-      support: 'サポート: lahiruvimukthi292@gmail.com'
+      bookings: '予約: lahiruclassen56@gmail.com',
+      support: 'サポート: lahiruclassen56@gmail.com'
     },
     hours: {
       label: '営業時間',

@@ -3,18 +3,11 @@ import { TextField, Button } from '@zenra/widgets';
 import { EnvelopeIcon, PhoneIcon, UserIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import { Rating } from '@mui/material';
-
-export interface FormData {
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-  serviceRating?: number;
-}
+import { FeedbackFormData } from '@zenra/models';
 
 export const ContactForm = () => {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FeedbackFormData>({
     name: '',
     email: '',
     phone: '',

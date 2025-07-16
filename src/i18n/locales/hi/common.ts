@@ -32,8 +32,8 @@ export const common = {
     },
     contact: {
       title: 'संपर्क जानकारी',
-      email: 'ईमेल: lahiruvimukthi292@gmail.com',
-      phone: 'फोन: +94 77 892 3789',
+      email: 'ईमेल: lahiruclassen56@gmail.com',
+      phone: 'फोन: +94 74 386 2361',
       address: 'पता: कोलंबो, श्रीलंका'
     },
     rights: 'सर्वाधिकार सुरक्षित।'

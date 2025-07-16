@@ -28,8 +28,8 @@ export const contact = {
     },
     email: {
       label: 'Email',
-      bookings: 'Бронирование: lahiruvimukthi292@gmail.com',
-      support: 'Поддержка: lahiruvimukthi292@gmail.com'
+      bookings: 'Бронирование: lahiruclassen56@gmail.com',
+      support: 'Поддержка: lahiruclassen56@gmail.com'
     },
     hours: {
       label: 'Часы работы',

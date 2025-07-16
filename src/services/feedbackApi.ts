@@ -1,15 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
-import { LoginCredentials, AuthResponse } from '@zenra/models';
+import { FeedbackFormData } from '@zenra/models';
 import axios, { AxiosError } from 'axios';
 
 
-export const useLogin = () => {
+export const useFeedback = () => {
     const { mutate: feedBackMutate } = useMutation({
-        mutationFn: async (payload: LoginCredentials) => {
-            const response = await axios.post<AuthResponse>(`${import.meta.env.VITE_API_URL}/feedback/add`, payload);
+        mutationFn: async (payload: FeedbackFormData) => {
+            const response = await axios.post<FeedbackFormData>(`${import.meta.env.VITE_API_URL}/feedback/add`, payload);
             return response.data;
         },
-        onSuccess: (response: AuthResponse) => response,
+        onSuccess: (response: FeedbackFormData) => response,
         onError: (err: AxiosError) => err,
     });
     return {

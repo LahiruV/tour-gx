@@ -29,9 +29,9 @@ export const common = {
     },
     contact: {
       title: 'Contact Info',
-      email: 'Email: lahiruvimukthi292@gmail.com',
-      phone: 'Phone: +94 77 892 3789',
-      address: 'Address: Colombo, Sri Lanka'
+      email: 'Email: lahiruclassen56@gmail.com',
+      phone: 'Phone: +94 74 386 2361',
+      address: 'Address: Delgasgoda, Dodangoda, Kalutara, Sri Lanka'
     },
     rights: 'All rights reserved.'
   }

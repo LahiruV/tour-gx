@@ -7,9 +7,9 @@ const leader = [
     key: 'ceo',
     image: '/images/ceo.jpg',
     social: {
-      phone: '+94 77 892 3789',
+      phone: '+94 74 386 2361',
       whatsapp: '+94778923789',
-      email: 'lahiruvimukthi292@gmail.com',
+      email: 'lahiruclassen56@gmail.com',
       instagram: 'https://www.instagram.com/laheev?igsh=MTduZmRvNXQ5dTY0bA=='
     }
   }

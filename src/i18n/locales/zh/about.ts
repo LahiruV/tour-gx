@@ -24,7 +24,7 @@ export const about = {
   story: {
     title: '我们的故事',
     content: [
-      'Elishiya Tours & Travels由Lahiru Vimukthi创立，源于通过创建全面的数字平台来革新斯里兰卡旅游业的愿景，简化旅行规划并提升游客体验。从向世界展示斯里兰卡美丽的梦想开始，已发展成为一家全方位的旅游科技公司。',
+      'Elishiya Tours & Travels由Lahiru Madawa Classen创立，源于通过创建全面的数字平台来革新斯里兰卡旅游业的愿景，简化旅行规划并提升游客体验。从向世界展示斯里兰卡美丽的梦想开始，已发展成为一家全方位的旅游科技公司。',
       '我们的创新方法将传统斯里兰卡待客之道与现代技术相结合，使国际旅客更容易发现、规划和体验我们美丽岛屿的一切 - 从住宿预订到冒险活动，从交通服务到文化体验。'
     ]
   },
@@ -60,7 +60,7 @@ export const about = {
     title: '领导团队',
     members: {
       ceo: {
-        name: 'Lahiru Vimukthi',
+        name: 'Lahiru Madawa Classen',
         role: '创始人兼首席执行官',
         description: '一位充满远见的企业家，热衷于通过创新的旅行解决方案向世界展示斯里兰卡的美丽。凭借丰富的旅游和技术经验，Lahiru带领Elishiya Tours & Travels革新游客体验斯里兰卡的方式。'
       }

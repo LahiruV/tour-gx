@@ -29,8 +29,8 @@ export const contact = {
     },
     email: {
       label: 'Email',
-      bookings: 'Bookings: lahiruvimukthi292@gmail.com',
-      support: 'Support: lahiruvimukthi292@gmail.com'
+      bookings: 'Bookings: lahiruclassen56@gmail.com',
+      support: 'Support: lahiruclassen56@gmail.com'
     },
     hours: {
       label: 'Business Hours',
