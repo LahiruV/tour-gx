@@ -17,7 +17,7 @@ export interface BookingFormProps {
   packageId: string;
   packageName: string;
   packageData: {
-    hotels: Hotel[];
+    hotels: any[];
   };
   onSubmit: (data: BookingFormData) => Promise<void>;
   isLoading?: boolean;
