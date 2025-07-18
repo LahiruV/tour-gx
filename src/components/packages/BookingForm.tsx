@@ -30,14 +30,14 @@ export const BookingForm = ({ packageName, packageData, onSubmit, isLoading }: B
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: e.target.type === 'checkbox' ? e.target.checked : value
+      [name]: e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     }));
   };
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">{t('packages.booking.title')} - {packageName}</h2>
-      
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <TextField
@@ -48,7 +48,7 @@ export const BookingForm = ({ packageName, packageData, onSubmit, isLoading }: B
             required
             startIcon={<UserIcon className="h-5 w-5" />}
           />
-          
+
           <TextField
             label={t('packages.booking.form.lastName')}
             name="lastName"
@@ -100,7 +100,7 @@ export const BookingForm = ({ packageName, packageData, onSubmit, isLoading }: B
             required
             startIcon={<UserGroupIcon className="h-5 w-5" />}
           />
-          
+
           <TextField
             label={t('packages.booking.form.children')}
             name="children"
@@ -116,17 +116,16 @@ export const BookingForm = ({ packageName, packageData, onSubmit, isLoading }: B
           <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('packages.booking.form.hotel.label')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {packageData.hotels.map((hotel) => (
-              <div 
+              <div
                 key={hotel.id}
-                className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                  formData.hotelId === hotel.id 
-                    ? 'border-primary bg-primary/5' 
-                    : 'border-gray-200 hover:border-primary/50'
-                }`}
+                className={`border rounded-lg p-4 cursor-pointer transition-all ${formData.hotelId === hotel.id
+                  ? 'border-primary bg-primary/5'
+                  : 'border-gray-200 hover:border-primary/50'
+                  }`}
                 onClick={() => handleChange({ target: { name: 'hotelId', value: hotel.id } } as any)}
               >
-                <img 
-                  src={hotel.image} 
+                <img
+                  src={hotel.image}
                   alt={hotel.name}
                   className="w-full h-48 object-cover rounded-lg mb-4"
                 />
@@ -139,8 +138,8 @@ export const BookingForm = ({ packageName, packageData, onSubmit, isLoading }: B
                 </div>
                 <p className="text-gray-600 text-sm mb-4">{hotel.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {hotel.amenities.map((amenity, index) => (
-                    <span 
+                  {hotel.amenities.map((amenity: string, index: number) => (
+                    <span
                       key={index}
                       className="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-sm"
                     >
@@ -168,11 +167,10 @@ export const BookingForm = ({ packageName, packageData, onSubmit, isLoading }: B
                 {['bb', 'hb', 'fb'].map((plan) => (
                   <div
                     key={plan}
-                    className={`border rounded-lg p-4 cursor-pointer transition-all ${
-                      formData.mealPlan === plan
-                        ? 'border-primary bg-primary/5'
-                        : 'border-gray-200 hover:border-primary/50'
-                    }`}
+                    className={`border rounded-lg p-4 cursor-pointer transition-all ${formData.mealPlan === plan
+                      ? 'border-primary bg-primary/5'
+                      : 'border-gray-200 hover:border-primary/50'
+                      }`}
                     onClick={() => handleChange({ target: { name: 'mealPlan', value: plan } } as any)}
                   >
                     <h5 className="font-semibold mb-2">

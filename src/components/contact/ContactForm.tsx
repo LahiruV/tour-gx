@@ -4,9 +4,13 @@ import { EnvelopeIcon, PhoneIcon, UserIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
 import { Rating } from '@mui/material';
 import { FeedbackFormData } from '@zenra/models';
+import { useFeedback } from '@zenra/services';
+import { toast } from 'sonner';
 
 export const ContactForm = () => {
   const { t } = useTranslation();
+  const { feedBackMutate } = useFeedback();
+
   const [formData, setFormData] = useState<FeedbackFormData>({
     name: '',
     email: '',
@@ -17,13 +21,21 @@ export const ContactForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      message: '',
-      serviceRating: 0.5
+    feedBackMutate(formData, {
+      onSuccess: () => {
+        toast.success(t('Feedback submitted successfully'));
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          message: '',
+          serviceRating: 0.5
+        });
+      },
+      onError: (error) => {
+        toast.error(t('Feedback submission failed'));
+        console.error('Feedback submission failed:', error);
+      }
     });
   };
 

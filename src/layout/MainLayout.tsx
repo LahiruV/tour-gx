@@ -1,5 +1,6 @@
 import { Header, Footer } from '@zenra/components';
 import { Outlet } from 'react-router-dom';
+import { Toaster } from 'sonner'
 
 export const MainLayout = () => {
   return (
@@ -7,6 +8,7 @@ export const MainLayout = () => {
       <Header />
       <Outlet />
       <Footer />
+      <Toaster richColors />
     </div>
   );
 };
