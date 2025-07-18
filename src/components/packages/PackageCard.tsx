@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Modal } from '@zenra/widgets';
 import { CalendarDaysIcon, ClockIcon, UserGroupIcon } from '@heroicons/react/24/outline';
-import { Package, BookingFormData, Hotel } from '@zenra/models';
+import { Package, BookingFormData } from '@zenra/models';
 import { useTranslation } from 'react-i18next';
 import { BookingForm } from './BookingForm';
 import { useBooking } from '@zenra/services';
