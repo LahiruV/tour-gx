@@ -94,7 +94,7 @@ export const AdminPackagesPage = () => {
             label: 'Image',
             render: (pkg) => (
                 <img
-                    src={pkg.image}
+                    src={`data:image/png;base64,${pkg.image}`}
                     alt={pkg.title}
                     className="w-16 h-16 object-cover rounded-lg"
                 />

@@ -226,7 +226,8 @@ export const AdminPackageForm = ({
                 {viewingPackage && (
                     <div className="space-y-6">
                         <img
-                            src={viewingPackage.image}
+
+                            src={`data:image/png;base64,${viewingPackage.image}`}
                             alt={viewingPackage.title}
                             className="w-full h-64 object-cover rounded-lg"
                         />
