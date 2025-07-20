@@ -26,3 +26,13 @@ export interface PackageFilters {
   priceRange: string;
   setPriceRange: (value: string) => void;
 }
+
+export interface PackageFormData {
+  title: string;
+  description: string;
+  image: string;
+  price: number;
+  duration: string;
+  groupSize: string;
+  startDate: string;
+}

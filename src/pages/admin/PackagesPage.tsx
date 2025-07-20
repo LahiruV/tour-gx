@@ -2,20 +2,9 @@ import { useState } from 'react';
 import { PageTransition } from '@zenra/components';
 import { Button, Table } from '@zenra/widgets';
 import { PlusIcon, PencilIcon, TrashIcon, EyeIcon } from '@heroicons/react/24/outline';
-import { Package, Column } from '@zenra/models';
+import { Package, Column, PackageFormData } from '@zenra/models';
 import { toast } from 'sonner';
 import { AdminPackageForm } from './PackageForm';
-
-interface PackageFormData {
-    title: string;
-    description: string;
-    image: string;
-    price: number;
-    duration: string;
-    groupSize: string;
-    startDate: string;
-    category: string;
-}
 
 const initialFormData: PackageFormData = {
     title: '',
@@ -25,7 +14,6 @@ const initialFormData: PackageFormData = {
     duration: '',
     groupSize: '',
     startDate: '',
-    category: ''
 };
 
 const mockPackages: Package[] = [
@@ -81,8 +69,7 @@ export const AdminPackagesPage = () => {
             price: pkg.price,
             duration: pkg.duration,
             groupSize: pkg.groupSize,
-            startDate: pkg.startDate,
-            category: 'cultural'
+            startDate: pkg.startDate
         });
         setIsModalOpen(true);
     };
