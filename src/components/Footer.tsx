@@ -16,9 +16,10 @@ export const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">{t('footer.quickLinks.title')}</h4>
             <ul className="space-y-2">
               <li><a href="/destinations" className="text-gray-400 hover:text-white">{t('footer.quickLinks.destinations')}</a></li>
-              {/* <li><a href="#packages" className="text-gray-400 hover:text-white">{t('footer.quickLinks.packages')}</a></li> */}
+              <li><a href="/packages" className="text-gray-400 hover:text-white">{t('footer.quickLinks.packages')}</a></li>
               <li><a href="/about" className="text-gray-400 hover:text-white">{t('footer.quickLinks.about')}</a></li>
               <li><a href="/contact" className="text-gray-400 hover:text-white">{t('footer.quickLinks.contact')}</a></li>
+              <li><a href="/admin" className="text-gray-400 hover:text-white">Admin</a></li>
             </ul>
           </div>
           <div>

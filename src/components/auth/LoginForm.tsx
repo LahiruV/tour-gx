@@ -41,7 +41,7 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
         startIcon={<LockClosedIcon className="h-5 w-5 text-gray-400" />}
       />
 
-      <div className="flex items-center justify-between">
+      {/* <div className="flex items-center justify-between">
         <div className="flex items-center">
           <input
             id="remember-me"
@@ -59,7 +59,7 @@ export const LoginForm = ({ onSubmit }: LoginFormProps) => {
             Forgot your password?
           </a>
         </div>
-      </div>
+      </div> */}
 
       <Button type="submit" fullWidth size="large" variant="primary">
         Sign in
