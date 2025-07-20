@@ -1,4 +1,5 @@
 import { Bars3Icon, BellIcon } from '@heroicons/react/24/outline';
+import { persistor } from '@zenra/store';
 import { Button } from '@zenra/widgets';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,6 +11,7 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    persistor.purge();
     navigate('/login');
   };
 
@@ -28,9 +30,12 @@ export const Header = ({ onMenuClick }: HeaderProps) => {
             <BellIcon className="h-6 w-6" />
           </button>
           <Button
-            variant="outline"
+            variant="secondary"
             size="small"
             onClick={handleLogout}
+            style={{
+              backgroundColor: '#c71c1cff',
+            }}
           >
             Logout
           </Button>

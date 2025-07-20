@@ -10,6 +10,8 @@ import {
   ChatBubbleLeftIcon,
 } from '@heroicons/react/24/outline';
 import { COMPANY_NAME } from '@zenra/constants';
+import { RootState } from '@zenra/store';
+import { useSelector } from 'react-redux';
 
 const navigation = [
   { name: 'Dashboard', icon: ChartBarIcon, path: '/admin' },
@@ -28,7 +30,7 @@ interface SidebarProps {
 
 export const Sidebar = ({ isOpen }: SidebarProps) => {
   const location = useLocation();
-
+  const { user } = useSelector((state: RootState) => state.auth);
   return (
     <aside
       className={`fixed top-0 left-0 z-40 h-screen transition-transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
@@ -36,7 +38,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
     >
       <div className="flex h-full flex-col overflow-y-auto bg-gray-900 w-64 py-4 px-3">
         <div className="flex items-center justify-between mb-8 px-2">
-          <Link to="/" className="text-xl font-bold text-white">
+          <Link to="#" className="text-xl font-bold text-white">
             {COMPANY_NAME}
           </Link>
         </div>
@@ -49,8 +51,8 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
                 key={item.name}
                 to={item.path}
                 className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${isActive
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                  ? 'bg-blue-600 text-white'
+                  : 'text-gray-300 hover:bg-gray-800 hover:text-white'
                   }`}
               >
                 <item.icon className="h-5 w-5 mr-3" />
@@ -68,8 +70,8 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
               className="h-8 w-8 rounded-full"
             />
             <div className="ml-3">
-              <p className="text-sm font-medium text-white">Admin User</p>
-              <p className="text-xs text-gray-400">admin@example.com</p>
+              <p className="text-sm font-medium text-white">{user?.name}</p>
+              <p className="text-xs text-gray-400">{user?.email}</p>
             </div>
           </div>
         </div>

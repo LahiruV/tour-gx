@@ -10,14 +10,13 @@ export const AdminLayout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
-
-      {/* Main content */}
-      <div className={`${isSidebarOpen ? 'md:ml-64' : ''}`}>
-        <Header onMenuClick={toggleSidebar} />
-
-        <main className="p-4">
+    <div className="min-h-screen bg-gray-100 flex">
+      <Sidebar isOpen={isSidebarOpen} />
+      <div className={`flex-1 flex flex-col ${isSidebarOpen ? 'md:ml-64' : ''}`}>
+        <div className="sticky top-0 z-50 bg-white shadow">
+          <Header onMenuClick={toggleSidebar} />
+        </div>
+        <main className="flex-1 overflow-y-auto p-4">
           <Outlet />
         </main>
       </div>
