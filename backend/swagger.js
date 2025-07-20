@@ -5,7 +5,7 @@ const doc = {
         title: 'EventEase API',
         description: 'Automatically generated Swagger documentation for EventEase'
     },
-    host: 'localhost:3000',
+    host: 'localhost:4500',
     schemes: ['http']
 };
 
