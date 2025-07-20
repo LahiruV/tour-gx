@@ -5,7 +5,7 @@
     "description": "Automatically generated Swagger documentation for EventEase",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "localhost:4500",
   "basePath": "/",
   "schemes": [
     "http"
