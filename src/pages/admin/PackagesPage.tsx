@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { PageTransition } from '@zenra/components';
-import { Button, Table } from '@zenra/widgets';
+import { AlertDialogSlide, Button, Table } from '@zenra/widgets';
 import { PlusIcon, PencilIcon, TrashIcon, EyeIcon } from '@heroicons/react/24/outline';
 import { Package, Column, PackageFormData } from '@zenra/models';
 import { toast } from 'sonner';
@@ -59,6 +59,12 @@ export const AdminPackagesPage = () => {
     const [editingPackage, setEditingPackage] = useState<Package | null>(null);
     const [viewingPackage, setViewingPackage] = useState<Package | null>(null);
     const [formData, setFormData] = useState<PackageFormData>(initialFormData);
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
+    const [title, setTitle] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [agreeButtonText, setAgreeButtonText] = useState<string>('Yes');
+    const [disagreeButtonText, setDisagreeButtonText] = useState<string>('No');
+    const [delID, setDelID] = useState<string>('');
 
     const handleEdit = (pkg: Package) => {
         setEditingPackage(pkg);
@@ -75,10 +81,12 @@ export const AdminPackagesPage = () => {
     };
 
     const handleDelete = (id: string) => {
-        if (window.confirm('Are you sure you want to delete this package?')) {
-            setPackages(prev => prev.filter(pkg => pkg.id !== id));
-            toast.success('Package deleted successfully!');
-        }
+        setIsDeleteDialogOpen(true);
+        setTitle('Confirm Deletion');
+        setDescription('Are you sure you want to delete this package?');
+        setAgreeButtonText('Delete');
+        setDisagreeButtonText('Cancel');
+        setDelID(id);
     };
 
     const handleView = (pkg: Package) => {
@@ -91,6 +99,22 @@ export const AdminPackagesPage = () => {
         setFormData(initialFormData);
         setIsModalOpen(true);
     };
+
+    const handleDialogOpen = () => setIsDeleteDialogOpen(true);
+    const handleDialogClose = () => setIsDeleteDialogOpen(false);
+
+    const handleDeleteConfirmed = () => {
+        if (delID) {
+            setPackages(prev => prev.filter(pkg => pkg.id !== delID));
+            toast.success('Package deleted successfully!');
+        }
+        setIsDeleteDialogOpen(false);
+    };
+    const handleDeleteCancelled = () => {
+        setIsDeleteDialogOpen(false);
+        toast.info('Deletion cancelled');
+    };
+
 
     const columns: Column<Package>[] = [
         {
@@ -194,6 +218,25 @@ export const AdminPackagesPage = () => {
                     />
                 </div>
             </div>
+
+            <AlertDialogSlide
+                open={isDeleteDialogOpen}
+                handleAgree={handleDeleteConfirmed}
+                handleDisagree={handleDeleteCancelled}
+                handleClickOpen={handleDialogOpen}
+                onClose={handleDialogClose}
+                handleClose={handleDialogClose}
+                title={title}
+                description={description}
+                agreeButtonText={agreeButtonText}
+                disagreeButtonText={disagreeButtonText}
+                aColor='error'
+                aVariant='contained'
+                aSize='small'
+                dColor='primary'
+                dVariant='outlined'
+                dSize='small'
+            />
         </PageTransition>
     );
 };
