@@ -1,5 +1,5 @@
 import { RegisterForm } from '@zenra/components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 
 export const RegisterPage = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { registerMutate } = useRegister();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -37,9 +38,10 @@ export const RegisterPage = () => {
     };
 
     registerMutate(payload, {
-      onSuccess: (response) => {
+      onSuccess: () => {
         setLoading(false);
         toast.success('Registration successful! Welcome aboard.');
+        navigate('/login')
       },
       onError: (error) => {
         setLoading(false);
