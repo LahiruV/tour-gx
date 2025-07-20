@@ -5,6 +5,7 @@ import { HomePage, AboutPage, LoginPage, RegisterPage, PackagesPage, Destination
 import { useAppSelector } from '@zenra/store'
 import { Navigate } from 'react-router-dom'
 import { AdminPackagesPage } from './pages/admin'
+import { Toaster } from 'sonner'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, isAuthenticated } = useAppSelector(state => state.auth);
@@ -35,6 +36,7 @@ function App() {
           <Route path="packages" element={<AdminPackagesPage />} />
         </Route> */}
       </Routes>
+      <Toaster richColors closeButton />
     </BrowserRouter>
   )
 }

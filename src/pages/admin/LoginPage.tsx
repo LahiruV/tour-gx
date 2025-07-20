@@ -2,8 +2,7 @@ import { LoginForm } from '@zenra/components';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
-import { Snackbar } from '@zenra/widgets';
+import { toast } from 'sonner'
 import { LoginCredentials } from '@zenra/models';
 import { useLogin } from '@zenra/services';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
@@ -11,15 +10,6 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 export const LoginPage = () => {
   const { t } = useTranslation();
   const { loginMutate } = useLogin();
-  const [notification, setNotification] = useState({
-    open: false,
-    message: '',
-    type: 'success' as const
-  });
-
-  const handleCloseNotification = () => {
-    setNotification(prev => ({ ...prev, open: false }));
-  };
 
   const handleLogin = async (email: string, password: string) => {
     const payload: LoginCredentials = {
@@ -29,19 +19,10 @@ export const LoginPage = () => {
 
     loginMutate(payload, {
       onSuccess: (response) => {
-        setNotification({
-          open: true,
-          message: 'Login successful! Welcome back.',
-          type: 'success'
-        });
-        console.log('Login successful:', response);
+        toast.success('Login successful! Welcome back.');
       },
       onError: (error) => {
-        setNotification({
-          open: true,
-          message: 'Login failed. Please check your credentials.',
-          type: 'error'
-        });
+        toast.error('Login failed. Please check your credentials and try again.');
         console.error('Login error:', error);
       },
     });
@@ -97,12 +78,6 @@ export const LoginPage = () => {
           </div>
         </motion.div>
       </div>
-      <Snackbar
-        open={notification.open}
-        message={notification.message}
-        type={notification.type}
-        onClose={handleCloseNotification}
-      />
     </div>
   );
 };

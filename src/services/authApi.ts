@@ -11,6 +11,7 @@ export const useLogin = () => {
     },
     onSuccess: (response: AuthResponse) => response,
     onError: (err: AxiosError) => err,
+    mutationKey: ['login'],
   });
   return {
     loginMutate,
@@ -26,6 +27,7 @@ export const useRegister = () => {
     },
     onSuccess: (response: AuthResponse) => response,
     onError: (err: AxiosError) => err,
+    mutationKey: ['register'],
   });
   return {
     registerMutate,

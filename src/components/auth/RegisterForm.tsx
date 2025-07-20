@@ -2,7 +2,7 @@ import { TextField, Button } from '@zenra/widgets';
 import { UserIcon, EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/outline';
 
 interface RegisterFormProps {
-  onSubmit: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: Function;
   name?: string;
   email?: string;
   password?: string;
