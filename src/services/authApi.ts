@@ -21,7 +21,7 @@ export const useLogin = () => {
 export const useRegister = () => {
   const { mutate: registerMutate } = useMutation({
     mutationFn: async (payload: RegisterCredentials) => {
-      const response = await axios.post<AuthResponse>(`${import.meta.env.VITE_API_URL}/auth/register`, payload);
+      const response = await axios.post<AuthResponse>(`${import.meta.env.VITE_API_URL}/auth/signup`, payload);
       return response.data;
     },
     onSuccess: (response: AuthResponse) => response,

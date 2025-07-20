@@ -26,8 +26,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // === API Routes ===
 app.use("/api/auth", authRoutes);
-app.use("/api/events", eventRoutes);
-app.use("/api/book", bookingRoutes);
+// app.use("/api/events", eventRoutes);
+// app.use("/api/book", bookingRoutes);
 
 // === Swagger UI (based on generated JSON) ===
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));

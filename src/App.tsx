@@ -24,15 +24,16 @@ function App() {
           <Route path="about" element={<AboutPage />} />
           <Route path="contact" element={<ContactPage />} />
         </Route>
-        {/* <Route path="/admin" element={<AdminLayout />}>
+        <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
           <Route path="bookings" element={<ProtectedRoute><BookingsPage /></ProtectedRoute>} />
-        </Route> */}
-        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="packages" element={<ProtectedRoute><AdminPackagesPage /></ProtectedRoute>} />
+        </Route>
+        {/* <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
           <Route path="bookings" element={<BookingsPage />} />
           <Route path="packages" element={<AdminPackagesPage />} />
-        </Route>
+        </Route> */}
       </Routes>
     </BrowserRouter>
   )

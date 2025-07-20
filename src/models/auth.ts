@@ -7,7 +7,7 @@ export interface RegisterCredentials {
   name: string;
   email: string;
   password: string;
-  role: 'user' | 'admin';
+  isAdmin: boolean;
 }
 
 export interface AuthResponse {
@@ -19,5 +19,5 @@ export interface User {
   id: string;
   email: string;
   name: string;
-  role: 'user' | 'admin';
+  isAdmin: boolean;
 }
