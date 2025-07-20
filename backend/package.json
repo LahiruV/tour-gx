@@ -5,6 +5,7 @@
   "scripts": {
     "swagger": "node swagger.js",
     "start": "node server.js",
+    "setup": "node setup.js",
     "dev": "npm run swagger && nodemon server.js"
   },
   "keywords": [],

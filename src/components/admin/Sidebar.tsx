@@ -31,9 +31,8 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
 
   return (
     <aside
-      className={`fixed top-0 left-0 z-40 h-screen transition-transform ${
-        isOpen ? 'translate-x-0' : '-translate-x-full'
-      } md:translate-x-0`}
+      className={`fixed top-0 left-0 z-40 h-screen transition-transform ${isOpen ? 'translate-x-0' : '-translate-x-full'
+        } md:translate-x-0`}
     >
       <div className="flex h-full flex-col overflow-y-auto bg-gray-900 w-64 py-4 px-3">
         <div className="flex items-center justify-between mb-8 px-2">
@@ -49,11 +48,10 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
               <Link
                 key={item.name}
                 to={item.path}
-                className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
-                  isActive
+                className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${isActive
                     ? 'bg-blue-600 text-white'
                     : 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                }`}
+                  }`}
               >
                 <item.icon className="h-5 w-5 mr-3" />
                 {item.name}
