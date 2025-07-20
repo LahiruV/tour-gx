@@ -6,10 +6,13 @@ import { toast } from 'sonner'
 import { LoginCredentials } from '@zenra/models';
 import { useLogin } from '@zenra/services';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { useDispatch } from 'react-redux';
+import { setAuthenticated, setUser } from '@zenra/store';
 
 export const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { loginMutate } = useLogin();
 
   const handleLogin = async (email: string, password: string) => {
@@ -20,8 +23,10 @@ export const LoginPage = () => {
 
     loginMutate(payload, {
       onSuccess: (response) => {
+        dispatch(setUser(response.user));
+        dispatch(setAuthenticated(true));
         toast.success('Login successful! Welcome back.');
-        navigate('/admin/dashboard');
+        navigate('/admin/bookings');
       },
       onError: (error) => {
         toast.error('Login failed. Please check your credentials and try again.');

@@ -38,10 +38,7 @@
         "./src/models/index.ts"
       ],
       "@zenra/store": [
-        "./src/store/store.ts"
-      ],
-      "@zenra/store/slices/*": [
-        "./src/store/slices/*"
+        "./src/store/index.ts"
       ],
     },
     /* Linting */

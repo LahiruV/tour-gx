@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@zenra/store'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
-  return !isAuthenticated || user?.role !== 'admin' ? <Navigate to="/login" /> : <>{children}</>;
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  return !isAuthenticated ? <Navigate to="/login" /> : <>{children}</>;
 };
 
 function App() {
@@ -31,11 +31,6 @@ function App() {
           <Route path="bookings" element={<ProtectedRoute><BookingsPage /></ProtectedRoute>} />
           <Route path="packages" element={<ProtectedRoute><AdminPackagesPage /></ProtectedRoute>} />
         </Route>
-        {/* <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
-          <Route path="bookings" element={<BookingsPage />} />
-          <Route path="packages" element={<AdminPackagesPage />} />
-        </Route> */}
       </Routes>
       <Toaster richColors closeButton />
     </BrowserRouter>
