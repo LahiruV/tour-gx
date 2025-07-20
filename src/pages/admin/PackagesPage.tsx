@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { PageTransition } from '@zenra/components';
-import { TextField, Button, Modal, Table } from '@zenra/widgets';
+import { Button, Table } from '@zenra/widgets';
 import { PlusIcon, PencilIcon, TrashIcon, EyeIcon } from '@heroicons/react/24/outline';
 import { Package, Column } from '@zenra/models';
 import { toast } from 'sonner';
+import { AdminPackageForm } from './PackageForm';
 
 interface PackageFormData {
     title: string;
@@ -71,39 +72,6 @@ export const AdminPackagesPage = () => {
     const [viewingPackage, setViewingPackage] = useState<Package | null>(null);
     const [formData, setFormData] = useState<PackageFormData>(initialFormData);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: name === 'price' ? parseFloat(value) || 0 : value
-        }));
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-
-        if (editingPackage) {
-            // Update existing package
-            setPackages(prev => prev.map(pkg =>
-                pkg.id === editingPackage.id
-                    ? { ...pkg, ...formData }
-                    : pkg
-            ));
-            toast.success('Package updated successfully!');
-        } else {
-            // Add new package
-            const newPackage: Package = {
-                id: Date.now().toString(),
-                ...formData,
-                hotels: []
-            };
-            setPackages(prev => [...prev, newPackage]);
-            toast.success('Package added successfully!');
-        }
-
-        handleCloseModal();
-    };
-
     const handleEdit = (pkg: Package) => {
         setEditingPackage(pkg);
         setFormData({
@@ -114,7 +82,7 @@ export const AdminPackagesPage = () => {
             duration: pkg.duration,
             groupSize: pkg.groupSize,
             startDate: pkg.startDate,
-            category: 'cultural' // Default category
+            category: 'cultural'
         });
         setIsModalOpen(true);
     };
@@ -129,12 +97,6 @@ export const AdminPackagesPage = () => {
     const handleView = (pkg: Package) => {
         setViewingPackage(pkg);
         setIsViewModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        setEditingPackage(null);
-        setFormData(initialFormData);
     };
 
     const handleAddNew = () => {
@@ -229,160 +191,20 @@ export const AdminPackagesPage = () => {
                         rowsPerPageOptions={[5, 10, 25]}
                         defaultRowsPerPage={10}
                     />
-
-                    {/* Add/Edit Package Modal */}
-                    <Modal
-                        open={isModalOpen}
-                        onClose={handleCloseModal}
-                        title={editingPackage ? 'Edit Package' : 'Add New Package'}
-                    >
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <TextField
-                                label="Package Title"
-                                name="title"
-                                value={formData.title}
-                                onChange={handleInputChange}
-                                required
-                            />
-
-                            <TextField
-                                label="Description"
-                                name="description"
-                                value={formData.description}
-                                onChange={handleInputChange}
-                                multiline
-                                rows={3}
-                                required
-                            />
-
-                            <TextField
-                                label="Image URL"
-                                name="image"
-                                value={formData.image}
-                                onChange={handleInputChange}
-                                required
-                                helperText="Enter a valid image URL"
-                            />
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <TextField
-                                    label="Price ($)"
-                                    name="price"
-                                    type="number"
-                                    value={formData.price}
-                                    onChange={handleInputChange}
-                                    required
-                                />
-
-                                <TextField
-                                    label="Duration"
-                                    name="duration"
-                                    value={formData.duration}
-                                    onChange={handleInputChange}
-                                    required
-                                    helperText="e.g., 5 Days, 1 Week"
-                                />
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <TextField
-                                    label="Group Size"
-                                    name="groupSize"
-                                    value={formData.groupSize}
-                                    onChange={handleInputChange}
-                                    required
-                                    helperText="e.g., Max 10 people"
-                                />
-
-                                <TextField
-                                    label="Availability"
-                                    name="startDate"
-                                    value={formData.startDate}
-                                    onChange={handleInputChange}
-                                    required
-                                    helperText="e.g., Available year-round"
-                                />
-                            </div>
-
-                            <div className="flex justify-end space-x-4 pt-6">
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={handleCloseModal}
-                                >
-                                    Cancel
-                                </Button>
-                                <Button
-                                    type="submit"
-                                    variant="primary"
-                                >
-                                    {editingPackage ? 'Update Package' : 'Add Package'}
-                                </Button>
-                            </div>
-                        </form>
-                    </Modal>
-
-                    {/* View Package Modal */}
-                    <Modal
-                        open={isViewModalOpen}
-                        onClose={() => setIsViewModalOpen(false)}
-                        title="Package Details"
-                    >
-                        {viewingPackage && (
-                            <div className="space-y-6">
-                                <img
-                                    src={viewingPackage.image}
-                                    alt={viewingPackage.title}
-                                    className="w-full h-64 object-cover rounded-lg"
-                                />
-
-                                <div>
-                                    <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                                        {viewingPackage.title}
-                                    </h2>
-                                    <p className="text-gray-600 mb-4">{viewingPackage.description}</p>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                        <span className="font-semibold text-gray-700">Price:</span>
-                                        <p className="text-2xl font-bold text-primary">${viewingPackage.price}</p>
-                                    </div>
-                                    <div>
-                                        <span className="font-semibold text-gray-700">Duration:</span>
-                                        <p className="text-gray-900">{viewingPackage.duration}</p>
-                                    </div>
-                                    <div>
-                                        <span className="font-semibold text-gray-700">Group Size:</span>
-                                        <p className="text-gray-900">{viewingPackage.groupSize}</p>
-                                    </div>
-                                    <div>
-                                        <span className="font-semibold text-gray-700">Availability:</span>
-                                        <p className="text-gray-900">{viewingPackage.startDate}</p>
-                                    </div>
-                                </div>
-
-                                <div className="flex justify-end space-x-4 pt-6">
-                                    <Button
-                                        variant="outline"
-                                        onClick={() => setIsViewModalOpen(false)}
-                                    >
-                                        Close
-                                    </Button>
-                                    <Button
-                                        variant="primary"
-                                        onClick={() => {
-                                            setIsViewModalOpen(false);
-                                            handleEdit(viewingPackage);
-                                        }}
-                                        startIcon={<PencilIcon className="h-5 w-5" />}
-                                    >
-                                        Edit Package
-                                    </Button>
-                                </div>
-                            </div>
-                        )}
-                    </Modal>
+                    <AdminPackageForm
+                        packages={packages}
+                        setPackages={setPackages}
+                        isModalOpen={isModalOpen}
+                        setIsModalOpen={setIsModalOpen}
+                        editingPackage={editingPackage}
+                        setEditingPackage={setEditingPackage}
+                        isViewModalOpen={isViewModalOpen}
+                        setIsViewModalOpen={setIsViewModalOpen}
+                        viewingPackage={viewingPackage}
+                        setViewingPackage={setViewingPackage}
+                        formData={formData}
+                        setFormData={setFormData}
+                    />
                 </div>
             </div>
         </PageTransition>
