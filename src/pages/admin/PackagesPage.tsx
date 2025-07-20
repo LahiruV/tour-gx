@@ -55,7 +55,6 @@ const mockPackages: Package[] = [
 
 export const AdminPackagesPage = () => {
     const { response, status, error } = getPackages(true);
-    console.log('Packages response:', response);
     const [packages, setPackages] = useState<Package[]>(mockPackages);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);

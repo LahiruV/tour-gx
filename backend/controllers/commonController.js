@@ -18,6 +18,6 @@ exports.convertImageToBase64 = (req, res) => {
         // Optional: clean up temp file
         fs.unlink(file.path, () => { });
 
-        res.json({ base64: base64Image });
+        res.json(base64Image);
     });
 };

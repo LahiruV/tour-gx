@@ -47,8 +47,6 @@ export const AdminPackageForm = ({
     const { packageAddMutate } = usePackage();
     const { imageToBase64Mutate } = useImageToBase64();
 
-    const [image, setImage] = useState<File | null>(null);
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prev: PackageFormData) => ({
@@ -143,9 +141,6 @@ export const AdminPackageForm = ({
                             const input = e.target as HTMLInputElement;
                             const file = input.files?.[0];
                             if (file) {
-                                setImage(file);
-                            }
-                            if (file) {
                                 imageToBase64Mutate(file, {
                                     onSuccess: (base64Image) => {
                                         setFormData((prev: PackageFormData) => ({
@@ -154,7 +149,6 @@ export const AdminPackageForm = ({
                                         }));
                                     },
                                     onError: (error) => {
-                                        setImage(null);
                                         toast.error('Image conversion failed');
                                         console.error('Image conversion failed:', error);
                                     }
