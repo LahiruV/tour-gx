@@ -53,9 +53,9 @@ export const AlertDialogSlide = ({ open, handleAgree, handleDisagree, handleClic
                 onClose={onClose}
                 aria-describedby="alert-dialog-slide-description"
             >
-                <DialogTitle>{title}</DialogTitle>
+                <DialogTitle style={{ color: '#0096C7', fontWeight: 'bold' }}>{title}</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
+                    <DialogContentText id="alert-dialog-slide-description" style={{ color: '#333' }}>
                         {description}
                     </DialogContentText>
                 </DialogContent>
