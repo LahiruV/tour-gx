@@ -9,6 +9,19 @@ CREATE TABLE IF NOT EXISTS users (
   email TEXT,
   isAdmin INTEGER DEFAULT 0
 );
+
+-- PACKAGES
+CREATE TABLE IF NOT EXISTS packages (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT,
+  description TEXT,
+  image TEXT,
+  price TEXT,
+  duration TEXT,
+  groupSize TEXT,
+  startDate TEXT
+);
+
 `;
 
 db.exec(setup, (err) => {
