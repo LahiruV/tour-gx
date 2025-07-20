@@ -14,16 +14,14 @@ exports.addPackage = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
 
-exports.getPackages = async (req, res) => {
-    try {
-        const packages = await db.all("SELECT * FROM packages");
-        res.json(packages);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-}
+exports.getPackages = (req, res) => {
+    db.all("SELECT * FROM packages", [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
+    });
+};
 
 exports.updatePackage = async (req, res) => {
     const { id, title, description, image, price, duration, groupSize, startDate } = req.body;
