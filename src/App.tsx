@@ -2,13 +2,14 @@ import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { MainLayout, AdminLayout } from './layout'
 import { HomePage, AboutPage, LoginPage, RegisterPage, PackagesPage, DestinationsPage, ContactPage, DashboardPage, BookingsPage } from '@zenra/pages'
-import { useAppSelector } from '@zenra/store'
 import { Navigate } from 'react-router-dom'
 import { AdminPackagesPage } from './pages/admin'
 import { Toaster } from 'sonner'
+import { useSelector } from 'react-redux'
+import { RootState } from '@zenra/store'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { user, isAuthenticated } = useAppSelector(state => state.auth);
+  const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
   return !isAuthenticated || user?.role !== 'admin' ? <Navigate to="/login" /> : <>{children}</>;
 };
 

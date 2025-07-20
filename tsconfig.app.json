@@ -3,10 +3,13 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -16,15 +19,31 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@zenra/components": ["./src/components/index.ts"],
-      "@zenra/constants": ["./src/common/constants/index.ts"],
-      "@zenra/pages": ["./src/pages/index.ts"],
-      "@zenra/widgets": ["./src/widgets/index.ts"],
-      "@zenra/services": ["./src/services/index.ts"],
-      "@zenra/models": ["./src/models/index.ts"],
-      "@zenra/store": ["./src/store/index.ts"]
+      "@zenra/components": [
+        "./src/components/index.ts"
+      ],
+      "@zenra/constants": [
+        "./src/common/constants/index.ts"
+      ],
+      "@zenra/pages": [
+        "./src/pages/index.ts"
+      ],
+      "@zenra/widgets": [
+        "./src/widgets/index.ts"
+      ],
+      "@zenra/services": [
+        "./src/services/index.ts"
+      ],
+      "@zenra/models": [
+        "./src/models/index.ts"
+      ],
+      "@zenra/store": [
+        "./src/store/store.ts"
+      ],
+      "@zenra/store/slices/*": [
+        "./src/store/slices/*"
+      ],
     },
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -32,5 +51,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
