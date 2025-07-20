@@ -1,6 +1,5 @@
 const fs = require('fs');
 
-// Controller function — receives req/res, multer handled in route
 exports.convertImageToBase64 = (req, res) => {
     const file = req.file;
 
@@ -15,7 +14,6 @@ exports.convertImageToBase64 = (req, res) => {
 
         const base64Image = data.toString('base64');
 
-        // Optional: clean up temp file
         fs.unlink(file.path, () => { });
 
         res.json(base64Image);
