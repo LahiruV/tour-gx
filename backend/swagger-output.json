@@ -64,7 +64,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "username": {
+                "name": {
                   "example": "any"
                 },
                 "email": {

@@ -4,7 +4,7 @@ const setup = `
 -- USERS
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT,
+  name TEXT,
   password TEXT,
   email TEXT,
   isAdmin INTEGER DEFAULT 0

@@ -1,13 +1,32 @@
 const db = require("../models/db");
 
-exports.login = (req, res) => {
+exports.login = async (req, res) => {
     const { email, password } = req.body;
-    db.get("SELECT * FROM users WHERE email = ? AND password = ?", [email, password], (err, user) => {
+
+    db.get("SELECT * FROM users WHERE email = ? AND password = ?", [email, password], async (err, user) => {
         if (err) return res.status(500).json({ error: err.message });
         if (!user) return res.status(401).json({ error: "Invalid credentials" });
 
-        req.session.user = { email: user.email, isAdmin: user.isAdmin };
-        res.json({ message: "Login successful", user: req.session.user });
+        try {
+            const userData = await exports.getUser(email);
+            req.session.user = {
+                email: userData.email,
+                name: userData.name,
+                isAdmin: userData.isAdmin
+            };
+            res.json({ message: "Login successful", user: req.session.user });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    });
+};
+
+exports.getUser = (email) => {
+    return new Promise((resolve, reject) => {
+        db.get("SELECT * FROM users WHERE email = ?", [email], (err, row) => {
+            if (err) reject(err);
+            else resolve(row);
+        });
     });
 };
 
@@ -17,7 +36,7 @@ exports.logout = (req, res) => {
 };
 
 exports.signup = (req, res) => {
-    const { username, email, password, isAdmin } = req.body;
+    const { name, email, password, isAdmin } = req.body;
     if (isAdmin === undefined) {
         isAdmin = true;
     }
@@ -26,8 +45,8 @@ exports.signup = (req, res) => {
         if (user) return res.status(400).json({ error: "Email already in use" });
 
         db.run(
-            "INSERT INTO users (username, email, password, isAdmin) VALUES (?, ?, ?, ?)",
-            [username, email, password, isAdmin],
+            "INSERT INTO users (name, email, password, isAdmin) VALUES (?, ?, ?, ?)",
+            [name, email, password, isAdmin],
             function (err) {
                 if (err) return res.status(500).json({ error: err.message });
                 res.status(201).json({ message: "User registered", userId: this.lastID });
