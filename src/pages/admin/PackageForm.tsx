@@ -2,6 +2,7 @@ import { TextField, Button, Modal } from '@zenra/widgets';
 import { PencilIcon, } from '@heroicons/react/24/outline';
 import { Package, PackageFormData } from '@zenra/models';
 import { toast } from 'sonner';
+import { usePackage } from '@zenra/services';
 
 interface PackageFormProps {
     packages: Package[];
@@ -40,6 +41,9 @@ export const AdminPackageForm = ({
     formData,
     setFormData
 }: PackageFormProps) => {
+
+    const { packageAddMutate } = usePackage();
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData((prev: PackageFormData) => ({
@@ -62,16 +66,23 @@ export const AdminPackageForm = ({
             );
             toast.success('Package updated successfully!');
         } else {
-            // Add new package
-            const newPackage: Package = {
-                id: Date.now().toString(),
-                ...formData,
-                hotels: []
-            };
-            setPackages((prev: Package[]) => [...prev, newPackage]);
-            toast.success('Package added successfully!');
+            packageAddMutate(formData, {
+                onSuccess: () => {
+                    const newPackage: Package = {
+                        id: Date.now().toString(),
+                        ...formData,
+                        hotels: []
+                    };
+                    setPackages((prev: Package[]) => [...prev, newPackage]);
+                    setFormData(initialFormData);
+                    toast.success('Package added successfully!');
+                },
+                onError: (error) => {
+                    toast.error('Package addition failed');
+                    console.error('Package addition failed:', error);
+                }
+            });
         }
-
         handleCloseModal();
     };
 
