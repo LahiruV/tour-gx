@@ -2,7 +2,9 @@ import { TextField, Button, Modal } from '@zenra/widgets';
 import { PencilIcon, } from '@heroicons/react/24/outline';
 import { Package, PackageFormData } from '@zenra/models';
 import { toast } from 'sonner';
-import { usePackage } from '@zenra/services';
+import { useImageToBase64, usePackage } from '@zenra/services';
+import { Input } from '@mui/material';
+import { useState } from 'react';
 
 interface PackageFormProps {
     packages: Package[];
@@ -43,6 +45,9 @@ export const AdminPackageForm = ({
 }: PackageFormProps) => {
 
     const { packageAddMutate } = usePackage();
+    const { imageToBase64Mutate } = useImageToBase64();
+
+    const [image, setImage] = useState<File | null>(null);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -54,7 +59,6 @@ export const AdminPackageForm = ({
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
         if (editingPackage) {
             // Update existing package
             setPackages((prev: Package[]) =>
@@ -113,7 +117,7 @@ export const AdminPackageForm = ({
                 onClose={handleCloseModal}
                 title={editingPackage ? 'Edit Package' : 'Add New Package'}
             >
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6 p-4">
                     <TextField
                         label="Package Title"
                         name="title"
@@ -132,13 +136,34 @@ export const AdminPackageForm = ({
                         required
                     />
 
-                    <TextField
-                        label="Image URL"
+                    <Input
+                        type='file'
                         name="image"
-                        value={formData.image}
-                        onChange={handleInputChange}
+                        onChange={(e) => {
+                            const input = e.target as HTMLInputElement;
+                            const file = input.files?.[0];
+                            if (file) {
+                                setImage(file);
+                            }
+                            if (file) {
+                                imageToBase64Mutate(file, {
+                                    onSuccess: (base64Image) => {
+                                        setFormData((prev: PackageFormData) => ({
+                                            ...prev,
+                                            image: base64Image
+                                        }));
+                                    },
+                                    onError: (error) => {
+                                        setImage(null);
+                                        toast.error('Image conversion failed');
+                                        console.error('Image conversion failed:', error);
+                                    }
+                                });
+                            }
+                        }}
                         required
-                        helperText="Enter a valid image URL"
+                        inputProps={{ accept: 'image/*' }}
+                        className="mb-4 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-100 hover:file:bg-gray-200"
                     />
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

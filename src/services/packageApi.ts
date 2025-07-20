@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { PackageFormData } from '@zenra/models';
 import axios, { AxiosError } from 'axios';
 
@@ -34,6 +34,23 @@ export const usePackage = () => {
         packageUpdateMutate,
         ...addRest,
         ...updateRest,
+    };
+};
+
+export const getPackages = (isExecute: boolean) => {
+    const fetch = async () => {
+        const data = await axios.get<PackageFormData>(`${import.meta.env.VITE_API_URL}/packages`);
+        return data;
+    };
+    const { data: response, status, error } = useQuery({
+        queryKey: ['get-packages'],
+        queryFn: () => fetch(),
+        enabled: isExecute,
+    });
+    return {
+        response,
+        status,
+        error
     };
 };
 

@@ -5,6 +5,7 @@ import { PlusIcon, PencilIcon, TrashIcon, EyeIcon } from '@heroicons/react/24/ou
 import { Package, Column, PackageFormData } from '@zenra/models';
 import { toast } from 'sonner';
 import { AdminPackageForm } from './PackageForm';
+import { getPackages } from '@zenra/services';
 
 const initialFormData: PackageFormData = {
     title: '',
@@ -53,6 +54,8 @@ const mockPackages: Package[] = [
 ];
 
 export const AdminPackagesPage = () => {
+    const { response, status, error } = getPackages(true);
+    console.log('Packages response:', response);
     const [packages, setPackages] = useState<Package[]>(mockPackages);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
