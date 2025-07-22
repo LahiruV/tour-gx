@@ -1,5 +1,5 @@
 export interface Package {
-  id: string;
+  id?: string;
   title: string;
   description: string;
   image: string;
@@ -7,7 +7,7 @@ export interface Package {
   duration: string;
   groupSize: string;
   startDate: string;
-  hotels: Hotel[];
+  hotels?: Hotel[];
 }
 
 export interface Hotel {

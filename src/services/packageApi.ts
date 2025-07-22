@@ -29,9 +29,21 @@ export const usePackage = () => {
         mutationKey: ['package update'],
     });
 
+    const { mutate: packageDeleteMutate, ...deleteRest } = useMutation({
+        mutationFn: async (id: string) => {
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/packages/delete/${id}`);
+            return response.data;
+        },
+        onSuccess: (response: PackageFormData) => response,
+        onError: (err: AxiosError) => err,
+        mutationKey: ['package delete'],
+    });
+
     return {
         packageAddMutate,
         packageUpdateMutate,
+        packageDeleteMutate,
+        ...deleteRest,
         ...addRest,
         ...updateRest,
     };
@@ -42,7 +54,7 @@ export const getPackages = (isExecute: boolean) => {
         const data = await axios.get<PackageFormData>(`${import.meta.env.VITE_API_URL}/packages`);
         return data;
     };
-    const { data: response, status, error } = useQuery({
+    const { data: response, status, error, refetch } = useQuery({
         queryKey: ['get-packages'],
         queryFn: () => fetch(),
         enabled: isExecute,
@@ -50,7 +62,8 @@ export const getPackages = (isExecute: boolean) => {
     return {
         response,
         status,
-        error
+        error,
+        refetch
     };
 };
 

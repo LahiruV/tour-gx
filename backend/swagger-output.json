@@ -215,21 +215,15 @@
         }
       }
     },
-    "/api/packages/delete": {
+    "/api/packages/delete/{id}": {
       "delete": {
         "description": "",
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

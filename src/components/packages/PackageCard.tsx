@@ -83,7 +83,7 @@ export const PackageCard = ({
         title="Book Your Trip"
       >
         <BookingForm
-          packageId={id}
+          packageId={id ?? ''}
           packageName={title}
           packageData={{ hotels }}
           onSubmit={handleBooking}

@@ -5,7 +5,7 @@ import { PlusIcon, PencilIcon, TrashIcon, EyeIcon } from '@heroicons/react/24/ou
 import { Package, Column, PackageFormData } from '@zenra/models';
 import { toast } from 'sonner';
 import { AdminPackageForm } from './PackageForm';
-import { getPackages } from '@zenra/services';
+import { getPackages, usePackage } from '@zenra/services';
 
 const initialFormData: PackageFormData = {
     title: '',
@@ -18,7 +18,9 @@ const initialFormData: PackageFormData = {
 };
 
 export const AdminPackagesPage = () => {
-    const { response, status, error } = getPackages(true);
+
+    const { packageDeleteMutate } = usePackage();
+    const { response, refetch } = getPackages(true);
     const [packages, setPackages] = useState<Package[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isViewModalOpen, setIsViewModalOpen] = useState(false);
@@ -77,8 +79,16 @@ export const AdminPackagesPage = () => {
 
     const handleDeleteConfirmed = () => {
         if (delID) {
-            setPackages(prev => prev.filter(pkg => pkg.id !== delID));
-            toast.success('Package deleted successfully!');
+            packageDeleteMutate(delID, {
+                onSuccess: () => {
+                    setPackages(prev => prev.filter(pkg => pkg.id !== delID));
+                    toast.success('Package deleted successfully!');
+                },
+                onError: (error) => {
+                    toast.error('Failed to delete package');
+                    console.error('Delete failed:', error);
+                },
+            });
         }
         setIsDeleteDialogOpen(false);
     };
@@ -141,7 +151,7 @@ export const AdminPackagesPage = () => {
                         <PencilIcon className="h-4 w-4" />
                     </button>
                     <button
-                        onClick={() => handleDelete(pkg.id)}
+                        onClick={() => handleDelete(pkg.id ?? '')}
                         className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                     >
                         <TrashIcon className="h-4 w-4" />
@@ -169,14 +179,14 @@ export const AdminPackagesPage = () => {
                     <Table
                         columns={columns}
                         data={packages}
-                        keyExtractor={(pkg) => pkg.id}
+                        keyExtractor={(pkg) => pkg.id ?? ''}
                         defaultSort={{ field: 'title', direction: 'asc' }}
                         rowsPerPageOptions={[5, 10, 25]}
                         defaultRowsPerPage={10}
                     />
                     <AdminPackageForm
+                        refetch={refetch}
                         packages={packages}
-                        setPackages={setPackages}
                         isModalOpen={isModalOpen}
                         setIsModalOpen={setIsModalOpen}
                         editingPackage={editingPackage}

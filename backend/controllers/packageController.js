@@ -38,7 +38,7 @@ exports.updatePackage = async (req, res) => {
 }
 
 exports.deletePackage = async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
     if (!id) {
         return res.status(400).json({ error: "Package ID is required" });
     }
@@ -48,4 +48,4 @@ exports.deletePackage = async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};

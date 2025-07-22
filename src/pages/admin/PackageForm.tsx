@@ -4,11 +4,9 @@ import { Package, PackageFormData } from '@zenra/models';
 import { toast } from 'sonner';
 import { useImageToBase64, usePackage } from '@zenra/services';
 import { Input } from '@mui/material';
-import { useState } from 'react';
 
 interface PackageFormProps {
     packages: Package[];
-    setPackages: Function;
     isModalOpen: boolean;
     setIsModalOpen: Function;
     editingPackage: Package | null;
@@ -19,6 +17,7 @@ interface PackageFormProps {
     setViewingPackage: Function;
     formData: PackageFormData;
     setFormData: Function;
+    refetch: Function;
 }
 
 const initialFormData: PackageFormData = {
@@ -32,7 +31,6 @@ const initialFormData: PackageFormData = {
 };
 
 export const AdminPackageForm = ({
-    setPackages,
     isModalOpen,
     setIsModalOpen,
     editingPackage,
@@ -41,10 +39,11 @@ export const AdminPackageForm = ({
     setIsViewModalOpen,
     viewingPackage,
     formData,
-    setFormData
+    setFormData,
+    refetch,
 }: PackageFormProps) => {
 
-    const { packageAddMutate } = usePackage();
+    const { packageAddMutate, packageUpdateMutate } = usePackage();
     const { imageToBase64Mutate } = useImageToBase64();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -58,24 +57,25 @@ export const AdminPackageForm = ({
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (editingPackage) {
-            // Update existing package
-            setPackages((prev: Package[]) =>
-                prev.map((pkg: Package) =>
-                    pkg.id === (editingPackage as Package).id
-                        ? { ...pkg, ...formData }
-                        : pkg
-                )
-            );
-            toast.success('Package updated successfully!');
+            const updatedPackage: Package = {
+                id: editingPackage.id,
+                ...formData
+            };
+            packageUpdateMutate(updatedPackage, {
+                onSuccess: () => {
+                    refetch();
+                    setFormData(initialFormData);
+                    toast.success('Package updated successfully!');
+                },
+                onError: (error) => {
+                    toast.error('Package update failed');
+                    console.error('Package update failed:', error);
+                }
+            });
         } else {
             packageAddMutate(formData, {
                 onSuccess: () => {
-                    const newPackage: Package = {
-                        id: Date.now().toString(),
-                        ...formData,
-                        hotels: []
-                    };
-                    setPackages((prev: Package[]) => [...prev, newPackage]);
+                    refetch();
                     setFormData(initialFormData);
                     toast.success('Package added successfully!');
                 },
