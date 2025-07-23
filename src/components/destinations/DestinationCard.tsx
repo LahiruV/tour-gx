@@ -1,10 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Button } from '@zenra/widgets';
-import { MapPinIcon, BuildingOffice2Icon } from '@heroicons/react/24/outline';
+import { MapPinIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 import { useState, useMemo } from 'react';
 import { LocationMapModal } from './LocationMapModal';
-import i18n from '../../i18n';
 
 interface DestinationCardProps {
   id: string;
