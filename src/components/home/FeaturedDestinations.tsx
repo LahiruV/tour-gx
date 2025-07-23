@@ -4,32 +4,31 @@ import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import { useNavigate } from 'react-router-dom';
-import 'swiper/css';
 
 const destinations = [
   {
     id: 'kandy',
-    image: 'https://images.pexels.com/photos/14041994/pexels-photo-14041994.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    image: '../../../public/images/kandy.jpg'
   },
   {
     id: 'yala',
-    image: 'https://images.pexels.com/photos/4769072/pexels-photo-4769072.jpeg?auto=compress&cs=tinysrgb&w=600'
+    image: '../../../public/images/elephant.jpg'
   },
   {
     id: 'galle',
-    image: 'https://images.pexels.com/photos/27669335/pexels-photo-27669335/free-photo-of-the-old-town-of-santa-fe-with-a-tower-and-a-path.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    image: '../../../public/images/galle.jpg'
   },
   {
     id: 'sigiriya',
-    image: 'https://images.unsplash.com/photo-1612862862126-865765df2ded?q=80&w=3174&auto=format&fit=crop'
+    image: '../../../public/images/sigiriya.jpg'
   },
   {
     id: 'ella',
-    image: 'https://images.pexels.com/photos/2403209/pexels-photo-2403209.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    image: '../../../public/images/ella.jpg'
   },
   {
     id: 'unawatuna',
-    image: 'https://images.pexels.com/photos/847393/pexels-photo-847393.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    image: '../../../public/images/turtles.jpg'
   }
 ];
 
