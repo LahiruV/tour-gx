@@ -13,7 +13,7 @@ interface Filters {
 const destinationIds = [
   {
     id: 'mirissa',
-    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/mirissa.jpg",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/mirissa.jpg?raw=true",
   },
   {
     id: 'sigiriya',
