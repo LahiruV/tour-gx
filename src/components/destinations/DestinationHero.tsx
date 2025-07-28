@@ -7,7 +7,7 @@ interface DestinationHeroProps {
     category: string;
     season: string;
   };
-  onFilterChange: (key: string, value: string) => void;
+  onFilterChange: Function;
 }
 
 export const DestinationHero = ({ filters, onFilterChange }: DestinationHeroProps) => {
@@ -56,7 +56,7 @@ export const DestinationHero = ({ filters, onFilterChange }: DestinationHeroProp
         <p className="text-xl text-center max-w-2xl mb-8">{t('destinations.subtitle')}</p>
         <div className="w-full max-w-4xl">
           <div className="bg-white/90 backdrop-blur-sm rounded-lg p-2 flex flex-col md:flex-row gap-2"
-            style={{padding:'13px'}}>
+            style={{ padding: '13px' }}>
             <Dropdown
               label={t('destinations.filters.province')}
               options={provinces}
