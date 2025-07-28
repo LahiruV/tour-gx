@@ -17,68 +17,68 @@ const destinationIds = [
   },
   {
     id: 'sigiriya',
-    image: "../../public/images/sigiriya.jpg",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/sigiriya.jpg?raw=true",
   },
   {
     id: 'ella',
-    image: "../../public/images/ella.jpg",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/ella.jpg?raw=true",
   },
   {
     id: 'kandy',
-    image: "../../public/images/kandy.jpg",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/kandy.jpg?raw=true",
   },
   {
     id: 'jaffna',
-    image: "../../public/images/jaffna.avif",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/jaffna.avif?raw=true",
   },
   {
     id: 'nilaweli',
-    image: "../../public/images/nilaweli.jpeg",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/nilaweli.jpeg?raw=true",
   },
   {
     id: 'anuradhapura',
-    image: "../../public/images/anuradhapura.jpg",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/anuradhapura.jpg?raw=true",
   },
   {
     id: 'unawatuna',
-    image: "../../public/images/unawatuna.jpg",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/unawatuna.jpg?raw=true",
   },
   {
     id: 'yala',
-    image: "../../public/images/yala.avif",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/yala.avif?raw=true",
   },
   {
     id: 'polonnaruwa',
-    image: "../../public/images/polonnaruwa.avif",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/polonnaruwa.avif?raw=true",
   },
 
   {
     id: 'weligama',
-    image: "../../public/images/weligama.avif",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/weligama.avif?raw=true",
   },
   {
     id: 'nuwaraeliya',
-    image: "../../public/images/nuwaraeliya.avif",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/nuwaraeliya.avif?raw=true",
   },
   {
     id: 'rekawa',
-    image: "../../public/images/rekawa.jpeg",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/rekawa.jpeg?raw=true",
   },
   {
     id: 'galle',
-    image: "../../public/images/galle.jpg",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/galle.jpg?raw=true",
   },
   {
     id: 'arugambay',
-    image: "../../public/images/arugambay.jpeg"
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/arugambay.jpeg?raw=true"
   },
   {
     id: 'colombo',
-    image: "../../public/images/colombo.jpg",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/colombo.jpg?raw=true",
   },
   {
     id: 'negombo',
-    image: "../../public/images/negombo.avif",
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/negombo.avif?raw=true",
   }
 ];
 
