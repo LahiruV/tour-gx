@@ -32,7 +32,7 @@ export const Hero = () => {
         playsInline
         onLoadedData={() => setIsVideoLoaded(true)}
       >
-        <source src="https://github.com/LahiruV/tour-gx/blob/main/public/videos/2187246-uhd_2560_1440_30fps.mp4?raw=true" type="video/mp4" />
+        <source src="https://res.cloudinary.com/digipumwy/video/upload/v1753760497/2187246-uhd_2560_1440_30fps_l9rwfs.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black bg-opacity-50" />
       <motion.div
