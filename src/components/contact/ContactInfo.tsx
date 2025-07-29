@@ -9,7 +9,7 @@ export const ContactInfo = () => {
       <h2 className="text-2xl font-semibold text-gray-900 mb-6">
         {t('contact.info.title')}
       </h2>
-      
+
       <div className="space-y-8">
         <div className="flex items-start">
           <MapPinIcon className="h-6 w-6 text-primary mt-1" />
