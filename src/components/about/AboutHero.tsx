@@ -26,7 +26,7 @@ export const AboutHero = () => {
         playsInline
         onLoadedData={() => setIsVideoLoaded(true)}
       >
-        {/* <source src="https://res.cloudinary.com/digipumwy/video/upload/v1753760504/191283-889685028_large_zlhuij.mp4" type="video/mp4" /> */}
+        <source src="https://res.cloudinary.com/digipumwy/video/upload/v1753761835/191283-889685028_tiny_difp4r.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black bg-opacity-50" />
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4 max-w-6xl mx-auto">
