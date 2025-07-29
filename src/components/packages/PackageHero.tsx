@@ -8,7 +8,7 @@ interface PackageHeroProps {
     duration: string;
     priceRange: string;
   };
-  onFilterChange: (key: string, value: string) => void;
+  onFilterChange: Function;
 }
 
 export const PackageHero = ({ filters, onFilterChange }: PackageHeroProps) => {
@@ -49,7 +49,7 @@ export const PackageHero = ({ filters, onFilterChange }: PackageHeroProps) => {
         playsInline
         onLoadedData={() => setIsVideoLoaded(true)}
       >
-        <source src="../../../public/videos/132140-752588954_large.mp4" type="video/mp4" />
+        <source src=".https://github.com/LahiruV/tour-gx/blob/main/public/videos/132140-752588954_large.mp4?raw=true" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black bg-opacity-50" />
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4 max-w-6xl mx-auto">

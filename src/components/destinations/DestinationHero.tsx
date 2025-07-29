@@ -47,7 +47,7 @@ export const DestinationHero = ({ filters, onFilterChange }: DestinationHeroProp
     <div
       className="relative h-[400px] bg-cover bg-center"
       style={{
-        backgroundImage: 'url("https://images.unsplash.com/photo-1546708973-b339540b5162?q=80&w=1920&auto=format&fit=crop")',
+        backgroundImage: 'url("https://raw.githubusercontent.com/LahiruV/tour-gx/refs/heads/main/public/images/destination.avif")',
       }}
     >
       <div className="absolute inset-0 bg-black bg-opacity-50" />
