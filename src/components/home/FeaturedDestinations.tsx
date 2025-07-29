@@ -12,23 +12,23 @@ const destinations = [
   },
   {
     id: 'yala',
-    image: '../../../public/images/elephant.jpg'
+    image: 'https://github.com/LahiruV/tour-gx/blob/main/public/images/elephant.jpg?raw=true'
   },
   {
     id: 'galle',
-    image: '../../../public/images/galle.jpg'
+    image: 'https://github.com/LahiruV/tour-gx/blob/main/public/images/galle.jpg?raw=true'
   },
   {
     id: 'sigiriya',
-    image: '../../../public/images/sigiriya.jpg'
+    image: 'https://github.com/LahiruV/tour-gx/blob/main/public/images/sigiriya.jpg?raw=true'
   },
   {
     id: 'ella',
-    image: '../../../public/images/ella.jpg'
+    image: 'https://github.com/LahiruV/tour-gx/blob/main/public/images/ella.jpg?raw=true'
   },
   {
     id: 'unawatuna',
-    image: '../../../public/images/turtles.jpg'
+    image: 'https://github.com/LahiruV/tour-gx/blob/main/public/images/turtles.jpg?raw=true'
   }
 ];
 
