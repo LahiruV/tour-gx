@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const destinations = [
   {
     id: 'kandy',
-    image: '../../../public/images/kandy.jpg'
+    image: "https://github.com/LahiruV/tour-gx/blob/main/public/images/kandy.jpg?raw=true",
   },
   {
     id: 'yala',
