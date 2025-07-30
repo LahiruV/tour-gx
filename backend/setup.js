@@ -22,6 +22,17 @@ CREATE TABLE IF NOT EXISTS packages (
   startDate TEXT
 );
 
+-- FEEDBACKS
+CREATE TABLE feedbacks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT,
+    message TEXT,
+    serviceRating REAL,
+    country TEXT
+);
+
 `;
 
 db.exec(setup, (err) => {
