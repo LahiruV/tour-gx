@@ -1,22 +1,41 @@
 import { useState } from 'react';
 import { TextField, Button } from '@zenra/widgets';
+import { TextField as MuiTextField } from '@mui/material';
 import { EnvelopeIcon, PhoneIcon, UserIcon } from '@heroicons/react/24/outline';
 import { useTranslation } from 'react-i18next';
-import { Rating } from '@mui/material';
+import { Autocomplete, Rating } from '@mui/material';
 import { FeedbackFormData } from '@zenra/models';
 import { useFeedback } from '@zenra/services';
 import { toast } from 'sonner';
+
+// ✅ Add this country list (can be moved to a utils file)
+const countries = [
+  'Albania', 'Andorra', 'Armenia', 'Australia', 'Austria', 'Azerbaijan',
+  'Bangladesh', 'Belarus', 'Belgium', 'Bosnia and Herzegovina', 'Brazil',
+  'Bulgaria', 'Canada', 'China', 'Croatia', 'Cyprus', 'Czech Republic',
+  'Denmark', 'Estonia', 'Finland', 'France', 'Georgia', 'Germany',
+  'Greece', 'Hungary', 'Iceland', 'India', 'Indonesia', 'Ireland',
+  'Italy', 'Japan', 'Kazakhstan', 'Kosovo', 'Latvia', 'Liechtenstein',
+  'Lithuania', 'Luxembourg', 'Malaysia', 'Malta', 'Mexico', 'Moldova',
+  'Monaco', 'Montenegro', 'Netherlands', 'New Zealand', 'North Macedonia',
+  'Norway', 'Pakistan', 'Philippines', 'Poland', 'Portugal', 'Romania',
+  'Russia', 'San Marino', 'Serbia', 'Singapore', 'Slovakia', 'Slovenia',
+  'South Africa', 'Spain', 'Sri Lanka', 'Sweden', 'Switzerland',
+  'Thailand', 'Turkey', 'Ukraine', 'United Kingdom', 'United States',
+  'Vatican City'
+].sort();
 
 export const ContactForm = () => {
   const { t } = useTranslation();
   const { feedBackMutate } = useFeedback();
 
-  const [formData, setFormData] = useState<FeedbackFormData>({
+  const [formData, setFormData] = useState<FeedbackFormData & { country?: string }>({
     name: '',
     email: '',
     phone: '',
     message: '',
-    serviceRating: 0.5
+    serviceRating: 0.5,
+    country: ''
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -29,7 +48,8 @@ export const ContactForm = () => {
           email: '',
           phone: '',
           message: '',
-          serviceRating: 0.5
+          serviceRating: 0.5,
+          country: ''
         });
       },
       onError: (error) => {
@@ -39,7 +59,7 @@ export const ContactForm = () => {
     });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -91,14 +111,26 @@ export const ContactForm = () => {
 
         <div>
           <label className="block text-sm font-medium text-gray-600 mb-2">
-            {t('contact.form.rate')}
+            Select Country
           </label>
-          <Rating
-            className='pl-2'
-            name="serviceRating"
-            value={formData.serviceRating}
-            onChange={handleRatingChange}
-            precision={0.5}
+          <Autocomplete
+            options={countries}
+            value={formData.country || ''}
+            onChange={(_, newValue) => {
+              setFormData(prev => ({
+                ...prev,
+                country: newValue || ''
+              }));
+            }}
+            renderInput={(params) => (
+              <MuiTextField
+                {...params}
+                placeholder={'Select a country'}
+                variant="outlined"
+                fullWidth
+                required
+              />
+            )}
           />
         </div>
 

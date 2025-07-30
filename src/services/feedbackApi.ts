@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { FeedbackFormData } from '@zenra/models';
 import axios, { AxiosError } from 'axios';
 
@@ -14,5 +14,23 @@ export const useFeedback = () => {
     });
     return {
         feedBackMutate,
+    };
+};
+
+export const getFeedbacks = (isExecute: boolean) => {
+    const fetch = async () => {
+        const data = await axios.get<FeedbackFormData[]>(`${import.meta.env.VITE_API_URL}/feedback`);
+        return data;
+    };
+    const { data: response, status, error, refetch } = useQuery({
+        queryKey: ['get-feedbacks'],
+        queryFn: () => fetch(),
+        enabled: isExecute,
+    });
+    return {
+        response,
+        status,
+        error,
+        refetch
     };
 };
