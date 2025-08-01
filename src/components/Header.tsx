@@ -46,8 +46,8 @@ export const Header = () => {
           <Link
             to="/packages"
             className={`${isScrolled
-                ? isActive('/packages') ? 'text-primary font-medium' : 'text-gray-600'
-                : isActive('/packages') ? 'text-white font-medium' : 'text-white/80'
+              ? isActive('/packages') ? 'text-primary font-medium' : 'text-gray-600'
+              : isActive('/packages') ? 'text-white font-medium' : 'text-white/80'
               } hover:${isScrolled ? 'text-primary' : 'text-white'} transition-colors`}
           >
             {t('nav.packages')}
@@ -113,15 +113,15 @@ export const Header = () => {
           >
             {t('nav.destinations')}
           </Link>
-          {/* <Link
+          <Link
             to="/packages"
             className={`block ${isScrolled
-                ? isActive('/packages') ? 'text-primary font-medium' : 'text-gray-600'
-                : isActive('/packages') ? 'text-white font-medium' : 'text-white/80'
+              ? isActive('/packages') ? 'text-primary font-medium' : 'text-gray-600'
+              : isActive('/packages') ? 'text-white font-medium' : 'text-white/80'
               } hover:${isScrolled ? 'text-primary' : 'text-white'} transition-colors`}
           >
             {t('nav.packages')}
-          </Link> */}
+          </Link>
           <Link
             to="/about"
             className={`block ${isScrolled
