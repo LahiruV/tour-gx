@@ -28,6 +28,7 @@ export interface PackageFilters {
 }
 
 export interface PackageFormData {
+  id?: number;
   title: string;
   description: string;
   image: string;

@@ -39,7 +39,7 @@ export const PackageCard = ({
     <>
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         <img
-          src={image}
+          src={`data:image/png;base64,${image}`}
           alt={title}
           className="w-full h-48 object-cover"
         />

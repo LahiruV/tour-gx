@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { PageTransition, PackageCard, PackageFilters, PackageHero } from '@zenra/components';
 import { useTranslation } from 'react-i18next';
+import { getPackages } from '@zenra/services';
 
 interface PackageType {
   title: string;
@@ -18,25 +19,25 @@ interface Filters {
 }
 
 export const PackagesPage = () => {
-  const { t } = useTranslation();
+  const { response } = getPackages(true);
   const [filters, setFilters] = useState<Filters>({
     duration: 'all',
     priceRange: 'all'
   });
 
-  const packageKeys = ['culturalHeritage', 'beachParadise', 'wildlifeSafari'];
-  
-  const allPackages = packageKeys.map((key, index) => ({
-    id: String(index + 1),
-    title: t(`packages.items.${key}.title`),
-    description: t(`packages.items.${key}.description`),
-    image: t(`packages.items.${key}.image`),
-    price: Number(t(`packages.items.${key}.price`)),
-    duration: t(`packages.items.${key}.duration`),
-    groupSize: t(`packages.items.${key}.groupSize`),
-    startDate: t(`packages.items.${key}.startDate`),
-    hotels: t(`packages.items.${key}.hotels`, { returnObjects: true })
-  }));
+  const allPackages = Array.isArray(response?.data)
+    ? response.data.map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      description: item.description,
+      image: item.image,
+      price: Number(item.price),
+      duration: item.duration,
+      groupSize: item.groupSize,
+      startDate: item.startDate,
+      hotels: item.hotels
+    }))
+    : [];
 
   const filterPackages = (packages: PackageType[]) => {
     return packages.filter(pkg => {
