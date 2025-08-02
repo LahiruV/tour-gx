@@ -19,6 +19,7 @@ export const PackageCard = ({
   hotels = [],
 }: Package) => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [descExpanded, setDescExpanded] = useState(false);
   const { bookingMutate } = useBooking();
   const { t } = useTranslation();
 
@@ -45,7 +46,37 @@ export const PackageCard = ({
         />
         <div className="p-6">
           <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-          <p className="text-gray-600 mb-4">{description}</p>
+          <div className="text-gray-600 mb-4">
+            <p
+              className={`transition-all text-sm leading-relaxed ${!descExpanded
+                  ? 'overflow-hidden relative max-h-[4.5rem]' // approx 3 lines (3 * 1.5 line-height)
+                  : ''
+                }`}
+              aria-expanded={descExpanded}
+              style={
+                !descExpanded
+                  ? {
+                    display: '-webkit-box',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden',
+                  }
+                  : undefined
+              }
+            >
+              {description}
+            </p>
+            {description && description.trim().length > 0 && (
+              <button
+                type="button"
+                className="mt-1 text-primary text-sm font-medium focus:outline-none"
+                onClick={() => setDescExpanded((prev) => !prev)}
+                aria-label={descExpanded ? t('See less') : t('See more')}
+              >
+                {descExpanded ? t('See less') : t('See more')}
+              </button>
+            )}
+          </div>
 
           <div className="space-y-2 mb-4">
             <div className="flex items-center text-gray-600">
@@ -65,7 +96,9 @@ export const PackageCard = ({
           <div className="flex items-center justify-between">
             <div className="text-2xl font-bold text-primary flex items-baseline">
               <span>${price}</span>
-              <span className="text-sm text-text/60 font-normal ml-1">{t('packages.booking.form.perPerson')}</span>
+              <span className="text-sm text-text/60 font-normal ml-1">
+                {t('packages.booking.form.perPerson')}
+              </span>
             </div>
             <Button
               variant="primary"
