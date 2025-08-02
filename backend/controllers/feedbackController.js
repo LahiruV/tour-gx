@@ -1,14 +1,14 @@
 const db = require("../models/db");
 
 exports.addFeedback = async (req, res) => {
-    const { name, email, phone, message, serviceRating } = req.body;
-    if (!name || !email || !message || serviceRating === undefined) {
+    const { name, email, phone, message, serviceRating, country } = req.body;
+    if (!name || !email || !message || serviceRating === undefined || !country) {
         return res.status(400).json({ error: "Missing feedback details" });
     }
     try {
         const result = await db.run(
-            "INSERT INTO feedbacks (name, email, phone, message, serviceRating) VALUES (?, ?, ?, ?, ?)",
-            [name, email, phone, message, serviceRating]
+            "INSERT INTO feedbacks (name, email, phone, message, serviceRating, country) VALUES (?, ?, ?, ?, ?, ?)",
+            [name, email, phone, message, serviceRating, country]
         );
         res.status(201).json({ message: "Feedback added successfully", feedbackId: result.lastID });
     } catch (err) {
