@@ -23,8 +23,8 @@ export const contact = {
     },
     phone: {
       label: '电话',
-      local: '本地: +94 778923789',
-      international: '国际: +94 778923789'
+      local: '本地: +94 74 386 2361',
+      international: '国际: +94 74 386 2361'
     },
     email: {
       label: '电子邮件',

@@ -23,8 +23,8 @@ export const contact = {
     },
     phone: {
       label: '電話番号',
-      local: '国内: +94 778923789',
-      international: '国際: +94 778923789'
+      local: '国内: +94 74 386 2361',
+      international: '国際: +94 74 386 2361'
     },
     email: {
       label: 'メールアドレス',

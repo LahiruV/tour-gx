@@ -23,8 +23,8 @@ export const contact = {
     },
     phone: {
       label: 'फोन',
-      local: 'स्थानीय: +94 778923789',
-      international: 'अंतर्राष्ट्रीय: +94 778923789'
+      local: 'स्थानीय: +94 74 386 2361',
+      international: 'अंतर्राष्ट्रीय: +94 74 386 2361'
     },
     email: {
       label: 'ईमेल',

@@ -24,8 +24,8 @@ export const contact = {
     },
     phone: {
       label: 'Phone',
-      local: 'Local: +94 778923789',
-      international: 'International: +94 778923789'
+      local: 'Local: +94 74 386 2361',
+      international: 'International: +94 74 386 2361'
     },
     email: {
       label: 'Email',

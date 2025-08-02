@@ -50,8 +50,7 @@ export const DestinationHero = ({ filters, onFilterChange }: DestinationHeroProp
         backgroundImage: 'url("https://raw.githubusercontent.com/LahiruV/tour-gx/refs/heads/main/public/images/destination.avif")',
       }}
     >
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-white px-4">
-        <div className="absolute inset-0 bg-black bg-opacity-50" />
+      <div className="relative bg-black bg-opacity-50 z-10 h-full flex flex-col items-center justify-center text-white px-4">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center" style={{ paddingTop: "130px" }}>{t('destinations.title')}</h1>
         <p className="text-xl text-center max-w-2xl mb-8">{t('destinations.subtitle')}</p>
         <div className="w-full max-w-4xl">
