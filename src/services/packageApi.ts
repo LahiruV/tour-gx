@@ -58,6 +58,8 @@ export const getPackages = (isExecute: boolean) => {
         queryKey: ['get-packages'],
         queryFn: () => fetch(),
         enabled: isExecute,
+        refetchOnMount: 'always',
+        refetchOnWindowFocus: true,
     });
     return {
         response,

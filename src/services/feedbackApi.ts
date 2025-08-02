@@ -26,11 +26,13 @@ export const getFeedbacks = (isExecute: boolean) => {
         queryKey: ['get-feedbacks'],
         queryFn: () => fetch(),
         enabled: isExecute,
+        refetchOnMount: 'always',
+        refetchOnWindowFocus: true,
     });
     return {
         response,
         status,
         error,
-        refetch
+        refetch,
     };
 };
