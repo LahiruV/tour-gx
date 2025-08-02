@@ -33,33 +33,32 @@ export const CustomerExperience = () => {
         </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <AnimatedSection key={testimonial.name} delay={index * 0.2}>
+          {response?.data?.map((feedback, index) => (
+            <AnimatedSection key={feedback.id} delay={index * 0.2}>
               <motion.div
-                key={index}
                 className="bg-white rounded-xl shadow-lg p-6"
                 whileHover={{ scale: 1.03, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1)" }}
                 transition={{ duration: 0.3 }}
               >
                 <div className="flex items-center mb-4">
                   <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
+                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(feedback.name)}`}
+                    alt={feedback.name}
                     className="w-12 h-12 rounded-full object-cover"
                   />
                   <div className="ml-4">
-                    <h3 className="font-semibold text-gray-900">{testimonial.name}</h3>
-                    <p className="text-gray-500 text-sm">{testimonial.country}</p>
+                    <h3 className="font-semibold text-gray-900">{feedback.name}</h3>
+                    <p className="text-gray-500 text-sm">{feedback.country || "Unknown"}</p>
                   </div>
                 </div>
 
                 <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
+                  {[...Array(Math.round(feedback.serviceRating))].map((_, i) => (
                     <StarIcon key={i} className="h-5 w-5 text-yellow-400" />
                   ))}
                 </div>
 
-                <p className="text-gray-600 italic">"{testimonial.comment}"</p>
+                <p className="text-gray-600 italic">"{feedback.message}"</p>
               </motion.div>
             </AnimatedSection>
           ))}

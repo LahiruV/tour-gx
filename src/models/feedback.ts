@@ -1,8 +1,10 @@
 
 export interface FeedbackFormData {
+    id?: number;
     name: string;
     email: string;
     phone: string;
     message: string;
-    serviceRating?: number;
+    country: string;
+    serviceRating: number;
 }

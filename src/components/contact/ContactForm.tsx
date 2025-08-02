@@ -133,7 +133,18 @@ export const ContactForm = () => {
             )}
           />
         </div>
-
+        <div>
+          <label className="block text-sm font-medium text-gray-600 mb-2">
+            {t('contact.form.rate')}
+          </label>
+          <Rating
+            className='pl-2'
+            name="serviceRating"
+            value={formData.serviceRating}
+            onChange={handleRatingChange}
+            precision={0.5}
+          />
+        </div>
         <TextField
           label={t('contact.form.message.label')}
           name="message"
