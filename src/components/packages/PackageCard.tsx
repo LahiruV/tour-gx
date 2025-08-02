@@ -47,35 +47,35 @@ export const PackageCard = ({
         <div className="p-6">
           <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
           <div className="text-gray-600 mb-4">
-            <p
-              className={`transition-all text-sm leading-relaxed ${!descExpanded
-                  ? 'overflow-hidden relative max-h-[4.5rem]' // approx 3 lines (3 * 1.5 line-height)
+            <p className="transition-all text-sm leading-relaxed mb-1">
+              <span
+                className={`block ${!descExpanded
+                  ? 'overflow-hidden relative' // using line-clamp for collapse
                   : ''
-                }`}
-              aria-expanded={descExpanded}
-              style={
-                !descExpanded
-                  ? {
-                    display: '-webkit-box',
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                  }
-                  : undefined
-              }
-            >
-              {description}
+                  }`}
+                aria-expanded={descExpanded}
+                style={{
+                  minHeight: '4.5rem', // reserve 3 lines worth of space always
+                  display: !descExpanded ? '-webkit-box' : 'block',
+                  WebkitLineClamp: !descExpanded ? 3 : undefined,
+                  WebkitBoxOrient: !descExpanded ? 'vertical' : undefined,
+                  overflow: !descExpanded ? 'hidden' : undefined,
+                }}
+              >
+                {description}
+              </span>
             </p>
             {description && description.trim().length > 0 && (
               <button
                 type="button"
-                className="mt-1 text-primary text-sm font-medium focus:outline-none"
+                className="text-primary text-sm font-medium focus:outline-none"
                 onClick={() => setDescExpanded((prev) => !prev)}
                 aria-label={descExpanded ? t('See less') : t('See more')}
               >
                 {descExpanded ? t('See less') : t('See more')}
               </button>
             )}
+
           </div>
 
           <div className="space-y-2 mb-4">
