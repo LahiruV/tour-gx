@@ -16,7 +16,6 @@ export const PackageCard = ({
   duration,
   groupSize,
   startDate,
-  hotels = [],
 }: Package) => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [descExpanded, setDescExpanded] = useState(false);
