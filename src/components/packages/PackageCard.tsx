@@ -118,7 +118,6 @@ export const PackageCard = ({
         <BookingForm
           packageId={id ?? ''}
           packageName={title}
-          packageData={{ hotels }}
           onSubmit={handleBooking}
         />
       </Modal>

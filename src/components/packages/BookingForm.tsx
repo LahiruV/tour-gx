@@ -4,10 +4,10 @@ import { UserIcon, EnvelopeIcon, PhoneIcon, CalendarDaysIcon, UserGroupIcon } fr
 import { BookingFormData, BookingFormProps } from '@zenra/models';
 import { useTranslation } from 'react-i18next';
 
-export const BookingForm = ({ packageName, onSubmit, isLoading }: BookingFormProps) => {
+export const BookingForm = ({ packageName, packageId, onSubmit, isLoading }: BookingFormProps) => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState<BookingFormData>({
-    packageId: '',
+    packageId: packageId,
     firstName: '',
     lastName: '',
     email: '',
