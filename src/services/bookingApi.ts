@@ -6,7 +6,7 @@ import axios, { AxiosError } from 'axios';
 export const useBooking = () => {
     const { mutate: bookingMutate } = useMutation({
         mutationFn: async (payload: BookingFormData) => {
-            const response = await axios.post<BookingFormData>(`${import.meta.env.VITE_API_URL}/booking/add`, payload);
+            const response = await axios.post<BookingFormData>(`${import.meta.env.VITE_API_URL}/booking`, payload);
             return response.data;
         },
         onSuccess: (response: BookingFormData) => response,

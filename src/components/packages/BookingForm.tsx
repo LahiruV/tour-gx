@@ -16,6 +16,7 @@ export const BookingForm = ({ packageName, packageId, onSubmit, isLoading }: Boo
     adults: 1,
     children: 0,
     mealPlan: 'bb',
+    status: 'pending',
     includeTransport: false,
     includeAccommodation: false,
     specialRequests: ''

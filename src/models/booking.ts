@@ -10,6 +10,7 @@ export interface BookingFormData {
   mealPlan: 'bb' | 'hb' | 'fb';
   includeTransport: boolean;
   includeAccommodation: boolean;
+  status: 'pending' | 'confirmed' | 'cancelled';
   specialRequests?: string;
 }
 
