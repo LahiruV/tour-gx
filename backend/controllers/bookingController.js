@@ -1,30 +1,108 @@
 const db = require("../models/db");
 
-exports.bookTicket = (req, res) => {
-    const { eventID, ticketType, quantity, username } = req.body;
-    if (!eventID || !ticketType || !quantity || !username) {
+exports.bookTicket = async (req, res) => {
+    const {
+        packageId,
+        firstName,
+        lastName,
+        email,
+        phone,
+        travelDate,
+        adults,
+        children,
+        mealPlan,
+        includeTransport,
+        includeAccommodation,
+        specialRequests
+    } = req.body;
+
+    if (!packageId || !firstName || !lastName || !email || !phone || !travelDate || adults == null || children == null || !mealPlan || includeTransport == null || includeAccommodation == null) {
         return res.status(400).json({ error: "Missing booking details" });
     }
 
-    db.get("SELECT * FROM events WHERE id = ?", [eventID], (err, event) => {
-        if (err || !event) return res.status(400).json({ error: "Event not found" });
-        const currentDate = new Date().toISOString().slice(2, 10).replace(/-/g, '');
-        if (event.date < currentDate) return res.status(400).json({ error: "Event has already passed" });
+    try {
+        const result = await db.run(
+            `INSERT INTO bookings (
+                packageId, firstName, lastName, email, phone, travelDate,
+                adults, children, mealPlan, includeTransport, includeAccommodation, specialRequests
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            [
+                packageId, firstName, lastName, email, phone, travelDate,
+                adults, children, mealPlan, includeTransport ? 1 : 0, includeAccommodation ? 1 : 0, specialRequests || null
+            ]
+        );
+        res.status(201).json({ message: "Booking successful", bookingId: result.lastID });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
 
-        db.get("SELECT * FROM tickets WHERE eventID = ? AND ticketType = ?", [eventID, ticketType], (err, ticket) => {
-            if (err || !ticket || ticket.availability < quantity) {
-                return res.status(400).json({ error: "Insufficient availability or ticket not found" });
-            }
-            const newAvailability = ticket.availability - quantity;
-            db.run("UPDATE tickets SET availability = ? WHERE id = ?", [newAvailability, ticket.id], function (err) {
-                if (err) return res.status(500).json({ error: err.message });
-                db.run("INSERT INTO bookings (eventID, ticketType, username, quantity) VALUES (?, ?, ?, ?)",
-                    [eventID, ticketType, username, quantity],
-                    function (err) {
-                        if (err) return res.status(500).json({ error: err.message });
-                        res.status(201).json({ message: "Booking successful" });
-                    });
-            });
-        });
+exports.getAllBookings = async (req, res) => {
+    const query = `
+        SELECT
+            b.*, 
+            p.title AS packageTitle,
+            p.description AS packageDescription,
+            p.image AS packageImage,
+            p.price AS packagePrice
+        FROM bookings b
+        LEFT JOIN packages p ON b.packageId = p.id
+        ORDER BY b.id DESC
+    `;
+
+    db.all(query, [], (err, rows) => {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json(rows);
     });
+};
+
+exports.updateBooking = async (req, res) => {
+    const { id } = req.params;
+    const {
+        packageId,
+        firstName,
+        lastName,
+        email,
+        phone,
+        travelDate,
+        adults,
+        children,
+        mealPlan,
+        includeTransport,
+        includeAccommodation,
+        specialRequests
+    } = req.body;
+
+    if (!id || !packageId || !firstName || !lastName || !email || !phone || !travelDate || adults == null || children == null || !mealPlan || includeTransport == null || includeAccommodation == null) {
+        return res.status(400).json({ error: "Missing booking details" });
+    }
+
+    try {
+        await db.run(
+            `UPDATE bookings SET
+                packageId = ?, firstName = ?, lastName = ?, email = ?, phone = ?, travelDate = ?,
+                adults = ?, children = ?, mealPlan = ?, includeTransport = ?, includeAccommodation = ?, specialRequests = ?
+             WHERE id = ?`,
+            [
+                packageId, firstName, lastName, email, phone, travelDate,
+                adults, children, mealPlan, includeTransport ? 1 : 0, includeAccommodation ? 1 : 0, specialRequests || null, id
+            ]
+        );
+        res.json({ message: "Booking updated successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+exports.deleteBooking = async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) return res.status(400).json({ error: "Booking ID is required" });
+
+    try {
+        await db.run("DELETE FROM bookings WHERE id = ?", [id]);
+        res.json({ message: "Booking deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 };

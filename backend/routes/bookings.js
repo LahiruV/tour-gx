@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/bookingController");
-const isAuthenticated = require("../middleware/auth");
 
-router.post("/", isAuthenticated, controller.bookTicket);
+router.post("/", controller.bookTicket);
+router.get("/", controller.getAllBookings);
+router.put("/:id", controller.updateBooking);
+router.delete("/:id", controller.deleteBooking);
 
 module.exports = router;
