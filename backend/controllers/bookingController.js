@@ -1,5 +1,6 @@
 const db = require("../models/db");
 
+// CREATE
 exports.bookTicket = async (req, res) => {
     const {
         packageId,
@@ -13,10 +14,15 @@ exports.bookTicket = async (req, res) => {
         mealPlan,
         includeTransport,
         includeAccommodation,
-        specialRequests
+        specialRequests,
+        status = 'pending' // Default status
     } = req.body;
 
-    if (!packageId || !firstName || !lastName || !email || !phone || !travelDate || adults == null || children == null || !mealPlan || includeTransport == null || includeAccommodation == null) {
+    if (
+        !packageId || !firstName || !lastName || !email || !phone || !travelDate ||
+        adults == null || children == null || !mealPlan ||
+        includeTransport == null || includeAccommodation == null
+    ) {
         return res.status(400).json({ error: "Missing booking details" });
     }
 
@@ -24,11 +30,16 @@ exports.bookTicket = async (req, res) => {
         const result = await db.run(
             `INSERT INTO bookings (
                 packageId, firstName, lastName, email, phone, travelDate,
-                adults, children, mealPlan, includeTransport, includeAccommodation, specialRequests
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                adults, children, mealPlan, includeTransport, includeAccommodation,
+                specialRequests, status
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [
                 packageId, firstName, lastName, email, phone, travelDate,
-                adults, children, mealPlan, includeTransport ? 1 : 0, includeAccommodation ? 1 : 0, specialRequests || null
+                adults, children, mealPlan,
+                includeTransport ? 1 : 0,
+                includeAccommodation ? 1 : 0,
+                specialRequests || null,
+                status
             ]
         );
         res.status(201).json({ message: "Booking successful", bookingId: result.lastID });
@@ -37,6 +48,7 @@ exports.bookTicket = async (req, res) => {
     }
 };
 
+// READ (GET all bookings with package info)
 exports.getAllBookings = async (req, res) => {
     const query = `
         SELECT
@@ -56,6 +68,7 @@ exports.getAllBookings = async (req, res) => {
     });
 };
 
+// UPDATE
 exports.updateBooking = async (req, res) => {
     const { id } = req.params;
     const {
@@ -70,10 +83,15 @@ exports.updateBooking = async (req, res) => {
         mealPlan,
         includeTransport,
         includeAccommodation,
-        specialRequests
+        specialRequests,
+        status
     } = req.body;
 
-    if (!id || !packageId || !firstName || !lastName || !email || !phone || !travelDate || adults == null || children == null || !mealPlan || includeTransport == null || includeAccommodation == null) {
+    if (
+        !id || !packageId || !firstName || !lastName || !email || !phone || !travelDate ||
+        adults == null || children == null || !mealPlan ||
+        includeTransport == null || includeAccommodation == null || !status
+    ) {
         return res.status(400).json({ error: "Missing booking details" });
     }
 
@@ -81,11 +99,17 @@ exports.updateBooking = async (req, res) => {
         await db.run(
             `UPDATE bookings SET
                 packageId = ?, firstName = ?, lastName = ?, email = ?, phone = ?, travelDate = ?,
-                adults = ?, children = ?, mealPlan = ?, includeTransport = ?, includeAccommodation = ?, specialRequests = ?
+                adults = ?, children = ?, mealPlan = ?, includeTransport = ?, includeAccommodation = ?,
+                specialRequests = ?, status = ?
              WHERE id = ?`,
             [
                 packageId, firstName, lastName, email, phone, travelDate,
-                adults, children, mealPlan, includeTransport ? 1 : 0, includeAccommodation ? 1 : 0, specialRequests || null, id
+                adults, children, mealPlan,
+                includeTransport ? 1 : 0,
+                includeAccommodation ? 1 : 0,
+                specialRequests || null,
+                status,
+                id
             ]
         );
         res.json({ message: "Booking updated successfully" });
@@ -94,6 +118,23 @@ exports.updateBooking = async (req, res) => {
     }
 };
 
+exports.updateBookingStatus = async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    if (!id || !status) {
+        return res.status(400).json({ error: "Missing booking ID or status" });
+    }
+
+    try {
+        await db.run("UPDATE bookings SET status = ? WHERE id = ?", [status, id]);
+        res.json({ message: "Booking status updated successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+// DELETE
 exports.deleteBooking = async (req, res) => {
     const { id } = req.params;
 
