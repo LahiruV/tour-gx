@@ -1,9 +1,9 @@
 export interface BookingFormData {
+  packageId: string;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  hotelId: string;
   travelDate: string;
   adults: number;
   children: number;

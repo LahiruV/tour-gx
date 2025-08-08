@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { TextField, Button, Checkbox, FormGroup } from '@zenra/widgets';
-import { UserIcon, EnvelopeIcon, PhoneIcon, CalendarDaysIcon, UserGroupIcon, StarIcon } from '@heroicons/react/24/outline';
+import { UserIcon, EnvelopeIcon, PhoneIcon, CalendarDaysIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { BookingFormData, BookingFormProps } from '@zenra/models';
 import { useTranslation } from 'react-i18next';
 
-export const BookingForm = ({ packageName, packageData, onSubmit, isLoading }: BookingFormProps) => {
+export const BookingForm = ({ packageName, onSubmit, isLoading }: BookingFormProps) => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState<BookingFormData>({
+    packageId: '',
     firstName: '',
     lastName: '',
-    hotelId: '',
     email: '',
     phone: '',
     travelDate: '',
@@ -112,7 +112,7 @@ export const BookingForm = ({ packageName, packageData, onSubmit, isLoading }: B
           />
         </div>
 
-        <div className="bg-gray-50 p-4 rounded-lg mb-6">
+        {/* <div className="bg-gray-50 p-4 rounded-lg mb-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">{t('packages.booking.form.hotel.label')}</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {packageData.hotels.map((hotel) => (
@@ -156,7 +156,7 @@ export const BookingForm = ({ packageName, packageData, onSubmit, isLoading }: B
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         <div className="bg-gray-50 p-4 rounded-lg">
           <h3 className="text-lg font-semibold text-gray-900 mb-3">{t('packages.booking.form.services.title')}</h3>
