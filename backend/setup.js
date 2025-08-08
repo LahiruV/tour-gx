@@ -33,6 +33,24 @@ CREATE TABLE feedbacks (
     country TEXT
 );
 
+-- BOOKINGS
+CREATE TABLE IF NOT EXISTS bookings (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  packageId TEXT NOT NULL,
+  firstName TEXT NOT NULL,
+  lastName TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT NOT NULL,
+  travelDate TEXT NOT NULL,
+  adults INTEGER NOT NULL,
+  children INTEGER NOT NULL,
+  mealPlan TEXT CHECK (mealPlan IN ('bb', 'hb', 'fb')) NOT NULL,
+  includeTransport INTEGER NOT NULL CHECK (includeTransport IN (0, 1)),
+  includeAccommodation INTEGER NOT NULL CHECK (includeAccommodation IN (0, 1)),
+  specialRequests TEXT,
+  status TEXT CHECK (status IN ('pending', 'confirmed', 'cancelled')) NOT NULL DEFAULT 'pending'
+);
+
 `;
 
 db.exec(setup, (err) => {
