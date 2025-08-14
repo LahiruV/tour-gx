@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 export const BookingForm = ({ packageName, packageId, onSubmit, isLoading }: BookingFormProps) => {
   const { t } = useTranslation();
+  const today = new Date().toISOString().split("T")[0];
   const [formData, setFormData] = useState<BookingFormData>({
     packageId: packageId,
     firstName: '',
@@ -29,10 +30,16 @@ export const BookingForm = ({ packageName, packageId, onSubmit, isLoading }: Boo
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
-    }));
+    name === "adults" ?
+      setFormData(prev => ({ ...prev, [name]: Math.max(1, parseInt(value)) })) :
+      name === "children" ?
+        setFormData(prev => ({ ...prev, [name]: Math.max(0, parseInt(value)) })) :
+        name === "travelDate" ?
+          setFormData(prev => ({ ...prev, [name]: value >= today ? value : today })) :
+          setFormData(prev => ({
+            ...prev,
+            [name]: e.target.type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
+          }));
   };
 
   return (
@@ -88,6 +95,9 @@ export const BookingForm = ({ packageName, packageId, onSubmit, isLoading }: Boo
           onChange={handleChange}
           required
           startIcon={<CalendarDaysIcon className="h-5 w-5" />}
+          InputProps={{
+            inputProps: { min: new Date().toISOString().split("T")[0] }
+          }}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -95,7 +105,6 @@ export const BookingForm = ({ packageName, packageId, onSubmit, isLoading }: Boo
             label={t('packages.booking.form.adults')}
             name="adults"
             type="number"
-            min="1"
             value={formData.adults}
             onChange={handleChange}
             required
@@ -106,7 +115,7 @@ export const BookingForm = ({ packageName, packageId, onSubmit, isLoading }: Boo
             label={t('packages.booking.form.children')}
             name="children"
             type="number"
-            min="0"
+            helperText='Please enter an age between 2 and 12'
             value={formData.children}
             onChange={handleChange}
             startIcon={<UserGroupIcon className="h-5 w-5" />}

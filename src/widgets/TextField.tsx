@@ -1,6 +1,9 @@
-import { TextField as MuiTextField } from '@mui/material';
-import { InputAdornment } from '@mui/material';
-import { TextFieldProps } from '@zenra/models';
+import { TextField as MuiTextField, InputAdornment, TextFieldProps as MuiTextFieldProps } from '@mui/material';
+
+export interface TextFieldProps extends Omit<MuiTextFieldProps, 'size'> {
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+}
 
 export const TextField = ({
   label,
@@ -10,6 +13,7 @@ export const TextField = ({
   endIcon,
   multiline,
   rows,
+  InputProps,
   ...props
 }: TextFieldProps) => {
   return (
@@ -27,6 +31,7 @@ export const TextField = ({
         endAdornment: endIcon && (
           <InputAdornment position="end">{endIcon}</InputAdornment>
         ),
+        ...InputProps, // merge any extra InputProps safely
       }}
       {...props}
     />
