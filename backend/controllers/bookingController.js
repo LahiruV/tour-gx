@@ -56,7 +56,8 @@ exports.getAllBookings = async (req, res) => {
             p.title AS packageTitle,
             p.description AS packageDescription,
             p.image AS packageImage,
-            p.price AS packagePrice
+            p.price AS packagePrice,
+            (b.adults * CAST(p.price AS REAL) + b.children * CAST(p.price AS REAL) / 2) AS totalPrice
         FROM bookings b
         LEFT JOIN packages p ON b.packageId = p.id
         ORDER BY b.id DESC
@@ -67,6 +68,7 @@ exports.getAllBookings = async (req, res) => {
         res.json(rows);
     });
 };
+
 
 // UPDATE
 exports.updateBooking = async (req, res) => {
