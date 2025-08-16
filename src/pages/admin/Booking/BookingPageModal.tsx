@@ -22,13 +22,13 @@ export const BookingPageModal = ({
             {bookingDetails && (
                 <div className="space-y-6">
                     {/* Package Image */}
-                    {bookingDetails.packageImage && (
+                    {/* {bookingDetails.packageImage && (
                         <img
                             src={`data:image/jpeg;base64,${bookingDetails.packageImage}`}
                             alt={bookingDetails.packageTitle}
                             className="w-full h-64 object-cover rounded-lg"
                         />
-                    )}
+                    )} */}
 
                     {/* Package Info */}
                     <div>

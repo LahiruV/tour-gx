@@ -6,7 +6,11 @@ import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { BookingDetails, Column } from '@zenra/models';
 import { getStatusColor } from './BookingFilters';
 
-export const bookingColumns: Column<BookingDetails>[] = [
+interface BookingColumnsProps {
+    handleView: (booking: BookingDetails) => void;
+}
+
+export const bookingColumns = ({ handleView }: BookingColumnsProps): Column<BookingDetails>[] => [
     {
         id: 'firstName',
         label: 'Customer',

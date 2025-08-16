@@ -17,7 +17,7 @@ export const BookingsPage = () => {
   };
 
   const [filters, setFilters] = useState<Filters>(defaultFilters);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<BookingDetails | null>(null);
 
   const [sortConfig, setSortConfig] = useState<{
@@ -81,8 +81,12 @@ export const BookingsPage = () => {
     return sorted;
   }, [filteredBookings, sortConfig]);
 
-  const handleSort = (field: string, direction: 'asc' | 'desc') =>
-    setSortConfig({ field, direction });
+  const handleSort = (field: string, direction: 'asc' | 'desc') => setSortConfig({ field, direction });
+
+  const handleView = (booking: BookingDetails) => {
+    setSelectedBooking(booking);
+    setIsModalOpen(true);
+  };
 
   return (
     <PageTransition>
@@ -98,7 +102,7 @@ export const BookingsPage = () => {
           />
 
           <Table
-            columns={bookingColumns}
+            columns={bookingColumns({ handleView })}
             data={sortedBookings}
             keyExtractor={(b) => b.id}
             defaultSort={sortConfig}
