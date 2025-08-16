@@ -26,13 +26,16 @@ export const Modal = ({ open, onClose, title, children }: ModalProps) => {
             <XMarkIcon className="h-5 w-5 text-primary hover:text-primary/80 transition-colors" />
           </IconButton>
         </div>
-        
+
         {title && (
-          <DialogTitle className="p-0 text-2xl font-bold text-gray-900 mb-4">
+          <DialogTitle className="p-0 text-2xl font-bold text-gray-900 mb-4" style={{
+            fontWeight: 'bold',
+            marginTop: '-49px',
+          }}>
             {title}
           </DialogTitle>
         )}
-        
+
         <DialogContent className="p-0">
           {children}
         </DialogContent>

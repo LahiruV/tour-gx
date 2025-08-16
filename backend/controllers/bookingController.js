@@ -48,14 +48,13 @@ exports.bookTicket = async (req, res) => {
     }
 };
 
-// READ (GET all bookings with package info)
+// READ (GET all bookings with package info)             p.image AS packageImage,
 exports.getAllBookings = async (req, res) => {
     const query = `
         SELECT
             b.*, 
             p.title AS packageTitle,
             p.description AS packageDescription,
-            p.image AS packageImage,
             p.price AS packagePrice,
             (b.adults * CAST(p.price AS REAL) + b.children * CAST(p.price AS REAL) / 2) AS totalPrice
         FROM bookings b

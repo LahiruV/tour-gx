@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { BookingFormData } from '@zenra/models';
 import axios, { AxiosError } from 'axios';
 
@@ -14,5 +14,25 @@ export const useBooking = () => {
     });
     return {
         bookingMutate,
+    };
+};
+
+export const getBookings = (isExecute: boolean) => {
+    const fetch = async () => {
+        const data = await axios.get<any[]>(`${import.meta.env.VITE_API_URL}/booking`);
+        return data;
+    };
+    const { data: response, status, error, refetch } = useQuery({
+        queryKey: ['get-bookings'],
+        queryFn: () => fetch(),
+        enabled: isExecute,
+        refetchOnMount: 'always',
+        refetchOnWindowFocus: true,
+    });
+    return {
+        response,
+        status,
+        error,
+        refetch,
     };
 };
