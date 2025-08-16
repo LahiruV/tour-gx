@@ -21,6 +21,14 @@ export interface BookingFormProps {
   isLoading?: boolean;
 }
 
+export interface Filters {
+  status: string;
+  startDate: string;
+  endDate: string;
+  packageName: string;
+  search: string;
+}
+
 export interface Booking {
   id: string;
   customerName: string;

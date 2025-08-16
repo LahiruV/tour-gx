@@ -1,3 +1,3 @@
 export { DashboardPage } from './DashboardPage';
-export { BookingsPage } from './BookingsPage';
+export { BookingsPage } from './Booking/BookingsPage';
 export { AdminPackagesPage } from './PackagesPage';
