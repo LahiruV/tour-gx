@@ -48,10 +48,14 @@ export const AdminPackageForm = ({
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData((prev: PackageFormData) => ({
-            ...prev,
-            [name]: name === 'price' ? parseFloat(value) || 0 : value
-        }));
+        name === "duration" ?
+            setFormData((prev: PackageFormData) => ({ ...prev, [name]: Math.max(0, parseInt(value)) })) :
+            name === "price" ?
+                setFormData((prev: PackageFormData) => ({ ...prev, [name]: Math.max(0, parseFloat(value)) })) :
+                setFormData((prev: PackageFormData) => ({
+                    ...prev,
+                    [name]: name === 'price' ? parseFloat(value) || 0 : value
+                }));
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -171,12 +175,13 @@ export const AdminPackageForm = ({
                         />
 
                         <TextField
-                            label="Duration"
+                            label="Duration Days"
                             name="duration"
+                            type='number'
                             value={formData.duration}
                             onChange={handleInputChange}
                             required
-                            helperText="e.g., 5 Days, 1 Week"
+                            helperText="e.g 5 Days"
                         />
                     </div>
 
