@@ -17,7 +17,7 @@ export const BookingsPage = () => {
     search: '',
   };
   const { bookingDeleteMutate } = useBooking();
-  const { response, refetch } = getBookings(true);
+  const { response: bookings, refetch } = getBookings(true);
 
   const [filters, setFilters] = useState<Filters>(defaultFilters);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,20 +37,18 @@ export const BookingsPage = () => {
     direction: 'desc',
   });
 
-  const bookings = response?.data || [];
-
   const handleFilterChange = (name: keyof Filters, value: string) =>
     setFilters((prev) => ({ ...prev, [name]: value }));
 
   const handleClearFilters = () => setFilters(defaultFilters);
 
   const packages = useMemo(
-    () => Array.from(new Set(bookings.map((b) => b.packageName).filter(Boolean))),
+    () => Array.from(new Set(bookings?.data.map((b) => b.packageName).filter(Boolean))),
     [bookings]
   );
 
   const filteredBookings = useMemo(() => {
-    return bookings.filter((b) => {
+    return bookings?.data.filter((b) => {
       if (filters.status !== 'all' && b.status !== filters.status) return false;
       if (filters.packageName !== 'all' && b.packageName !== filters.packageName) return false;
       if (filters.startDate && b.travelDate < filters.startDate) return false;
@@ -70,7 +68,7 @@ export const BookingsPage = () => {
   }, [bookings, filters]);
 
   const sortedBookings = useMemo(() => {
-    const sorted = [...filteredBookings];
+    const sorted = [...filteredBookings || []];
     sorted.sort((a, b) => {
       const aVal = a[sortConfig.field];
       const bVal = b[sortConfig.field];
@@ -100,7 +98,7 @@ export const BookingsPage = () => {
     if (delID) {
       bookingDeleteMutate(delID, {
         onSuccess: () => {
-          refetch
+          refetch();
           toast.success('Booking deleted successfully!');
         },
         onError: (error) => {
@@ -117,7 +115,6 @@ export const BookingsPage = () => {
     toast.info('Deletion cancelled');
   };
 
-  const handleDialogOpen = () => setIsDeleteDialogOpen(true);
   const handleDialogClose = () => setIsDeleteDialogOpen(false);
 
   const handleDelete = (id: string) => {
@@ -160,7 +157,6 @@ export const BookingsPage = () => {
             open={isDeleteDialogOpen}
             handleAgree={handleDeleteConfirmed}
             handleDisagree={handleDeleteCancelled}
-            handleClickOpen={handleDialogOpen}
             onClose={handleDialogClose}
             handleClose={handleDialogClose}
             title={title}

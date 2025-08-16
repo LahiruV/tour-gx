@@ -74,7 +74,6 @@ export const AdminPackagesPage = () => {
         setIsModalOpen(true);
     };
 
-    const handleDialogOpen = () => setIsDeleteDialogOpen(true);
     const handleDialogClose = () => setIsDeleteDialogOpen(false);
 
     const handleDeleteConfirmed = () => {
@@ -205,7 +204,6 @@ export const AdminPackagesPage = () => {
                 open={isDeleteDialogOpen}
                 handleAgree={handleDeleteConfirmed}
                 handleDisagree={handleDeleteCancelled}
-                handleClickOpen={handleDialogOpen}
                 onClose={handleDialogClose}
                 handleClose={handleDialogClose}
                 title={title}

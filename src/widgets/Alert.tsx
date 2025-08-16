@@ -12,7 +12,6 @@ import { TransitionProps } from '@mui/material/transitions';
 
 interface AlertDialogSlideProps {
     open: boolean;
-    handleClickOpen: () => void;
     handleClose: () => void;
     handleAgree: () => void;
     handleDisagree: () => void;
@@ -40,12 +39,9 @@ const Transition = React.forwardRef(function Transition(
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export const AlertDialogSlide = ({ open, handleAgree, handleDisagree, handleClickOpen, onClose, title, description, agreeButtonText, disagreeButtonText, aVariant = 'contained', aColor = 'primary', aSize = 'medium', aDisabled = false, dVariant = 'outlined', dColor = 'secondary', dSize = 'medium', dDisabled = false }: AlertDialogSlideProps) => {
+export const AlertDialogSlide = ({ open, handleAgree, handleDisagree, onClose, title, description, agreeButtonText, disagreeButtonText, aVariant = 'contained', aColor = 'primary', aSize = 'medium', aDisabled = false, dVariant = 'outlined', dColor = 'secondary', dSize = 'medium', dDisabled = false }: AlertDialogSlideProps) => {
     return (
         <React.Fragment>
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Slide in alert dialog
-            </Button>
             <Dialog
                 open={open}
                 TransitionComponent={Transition}
