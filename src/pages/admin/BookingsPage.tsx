@@ -11,12 +11,12 @@ import {
   InputLabel,
 } from '@mui/material';
 import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
-import { Booking, Column } from '@zenra/models';
+import { Booking, BookingDetails, Column } from '@zenra/models';
 import { TextField, Table } from '@zenra/widgets';
 import { getBookings } from '@zenra/services';
 
 /* -------------------- Utilities -------------------- */
-const getStatusColor = (status: Booking['status']) => {
+const getStatusColor = (status: Booking['status'] | string) => {
   switch (status) {
     case 'confirmed':
       return 'success';
@@ -39,7 +39,7 @@ interface Filters {
 }
 
 /* -------------------- Table Columns -------------------- */
-const columns: Column<any>[] = [
+const columns: Column<BookingDetails>[] = [
   {
     id: 'firstName',
     label: 'Customer',

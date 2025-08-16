@@ -35,3 +35,25 @@ export interface Booking {
   phone: string;
   specialRequests?: string;
 }
+
+export interface BookingDetails {
+  id: number;
+  packageId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  travelDate: string; // ISO date string (YYYY-MM-DD)
+  adults: number;
+  children: number;
+  mealPlan: string;
+  includeTransport: number; // 0 or 1
+  includeAccommodation: number; // 0 or 1
+  specialRequests: string;
+  status: string;
+  packageTitle: string;
+  packageDescription: string;
+  packagePrice: string; // could be number if desired
+  packageImage: string; // base64, use `data:image/jpeg;base64,` prefix when rendering
+  totalPrice: number;
+}

@@ -7,7 +7,7 @@ exports.addPackage = async (req, res) => {
     }
     try {
         const result = await db.run(
-            "INSERT INTO packages (title, description, image, price, duration, groupSize, startDate) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO packages (title, description, image, price, duration, groupSize, startDate, isActive) VALUES (?, ?, ?, ?, ?, ?, ?, 1)",
             [title, description, image, price, duration, groupSize, startDate]
         );
         res.status(201).json({ message: "Package added successfully", packageId: result.lastID });
@@ -17,7 +17,7 @@ exports.addPackage = async (req, res) => {
 };
 
 exports.getPackages = (req, res) => {
-    db.all("SELECT * FROM packages", [], (err, rows) => {
+    db.all("SELECT * FROM packages WHERE isActive = 1", [], (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(rows);
     });
@@ -43,7 +43,7 @@ exports.deletePackage = async (req, res) => {
         return res.status(400).json({ error: "Package ID is required" });
     }
     try {
-        await db.run("DELETE FROM packages WHERE id = ?", [id]);
+        await db.run("UPDATE packages SET isActive = 0 WHERE id = ?", [id]);
         res.json({ message: "Package deleted successfully" });
     } catch (err) {
         res.status(500).json({ error: err.message });

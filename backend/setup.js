@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS packages (
   price TEXT,
   duration TEXT,
   groupSize TEXT,
-  startDate TEXT
+  startDate TEXT,
+  isActive INTEGER DEFAULT 1
 );
 
 -- FEEDBACKS

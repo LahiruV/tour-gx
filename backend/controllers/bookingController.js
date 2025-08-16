@@ -56,6 +56,7 @@ exports.getAllBookings = async (req, res) => {
             p.title AS packageTitle,
             p.description AS packageDescription,
             p.price AS packagePrice,
+            p.image AS packageImage,
             (b.adults * CAST(p.price AS REAL) + b.children * CAST(p.price AS REAL) / 2) AS totalPrice
         FROM bookings b
         LEFT JOIN packages p ON b.packageId = p.id
