@@ -4,16 +4,29 @@ import axios, { AxiosError } from 'axios';
 
 
 export const useBooking = () => {
-    const { mutate: bookingMutate } = useMutation({
+    const { mutate: bookingMutate, ...addMutate } = useMutation({
         mutationFn: async (payload: BookingFormData) => {
-            const response = await axios.post<BookingFormData>(`${import.meta.env.VITE_API_URL}/booking`, payload);
+            const response = await axios.post<BookingFormData>(`${import.meta.env.VITE_API_URL}/booking/add`, payload);
             return response.data;
         },
         onSuccess: (response: BookingFormData) => response,
         onError: (err: AxiosError) => err,
+        mutationKey: ['add-booking']
+    });
+    const { mutate: bookingDeleteMutate, ...deleteMutate } = useMutation({
+        mutationFn: async (id: string) => {
+            const response = await axios.delete(`${import.meta.env.VITE_API_URL}/booking/delete/${id}`);
+            return response.data;
+        },
+        onSuccess: (response: BookingFormData) => response,
+        onError: (err: AxiosError) => err,
+        mutationKey: ['delete-booking'],
     });
     return {
         bookingMutate,
+        ...addMutate,
+        bookingDeleteMutate,
+        ...deleteMutate,
     };
 };
 

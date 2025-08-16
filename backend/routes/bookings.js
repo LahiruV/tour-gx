@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/bookingController");
 
-router.post("/", controller.bookTicket);
+router.post("/add", controller.bookTicket);
 router.get("/", controller.getAllBookings);
-router.put("/:id", controller.updateBooking);
+router.put("/update/:id", controller.updateBooking);
 router.patch("/status/:id", controller.updateBookingStatus);
-router.delete("/:id", controller.deleteBooking);
+router.delete("/delete/:id", controller.deleteBooking);
 
 module.exports = router;

@@ -337,7 +337,7 @@
         }
       }
     },
-    "/api/booking/": {
+    "/api/booking/add": {
       "post": {
         "description": "",
         "parameters": [
@@ -401,7 +401,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/booking/": {
       "get": {
         "description": "",
         "responses": {
@@ -414,7 +416,7 @@
         }
       }
     },
-    "/api/booking/{id}": {
+    "/api/booking/update/{id}": {
       "put": {
         "description": "",
         "parameters": [
@@ -484,28 +486,6 @@
             "description": "Internal Server Error"
           }
         }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
       }
     },
     "/api/booking/status/{id}": {
@@ -529,6 +509,30 @@
                 }
               }
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/booking/delete/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {

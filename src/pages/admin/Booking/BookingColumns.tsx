@@ -8,9 +8,10 @@ import { getStatusColor } from './BookingFilters';
 
 interface BookingColumnsProps {
     handleView: (booking: BookingDetails) => void;
+    handleDelete: (bookingId: string) => void;
 }
 
-export const bookingColumns = ({ handleView }: BookingColumnsProps): Column<BookingDetails>[] => [
+export const bookingColumns = ({ handleView, handleDelete }: BookingColumnsProps): Column<BookingDetails>[] => [
     {
         id: 'firstName',
         label: 'Customer',
@@ -63,9 +64,12 @@ export const bookingColumns = ({ handleView }: BookingColumnsProps): Column<Book
                 <IconButton size="small">
                     <PencilIcon className="h-4 w-4" />
                 </IconButton>
-                <IconButton size="small" color="error">
+                <button
+                    onClick={() => handleDelete(String(booking.id ?? ''))}
+                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                >
                     <TrashIcon className="h-4 w-4" />
-                </IconButton>
+                </button>
             </div>
         ),
     },

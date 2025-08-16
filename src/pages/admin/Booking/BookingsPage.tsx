@@ -1,11 +1,12 @@
 import { useState, useMemo } from 'react';
 import { PageTransition } from '@zenra/components';
 import { BookingDetails, Filters } from '@zenra/models';
-import { Table } from '@zenra/widgets';
-import { getBookings } from '@zenra/services';
+import { AlertDialogSlide, Table } from '@zenra/widgets';
+import { getBookings, useBooking } from '@zenra/services';
 import { BookingPageModal } from './BookingPageModal';
 import { BookingFilters } from './BookingFilters';
 import { bookingColumns } from './BookingColumns';
+import { toast } from 'sonner';
 
 export const BookingsPage = () => {
   const defaultFilters: Filters = {
@@ -15,10 +16,18 @@ export const BookingsPage = () => {
     packageName: 'all',
     search: '',
   };
+  const { bookingDeleteMutate } = useBooking();
+  const { response, refetch } = getBookings(true);
 
   const [filters, setFilters] = useState<Filters>(defaultFilters);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<BookingDetails | null>(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [agreeButtonText, setAgreeButtonText] = useState<string>('Yes');
+  const [disagreeButtonText, setDisagreeButtonText] = useState<string>('No');
+  const [delID, setDelID] = useState<string>('');
 
   const [sortConfig, setSortConfig] = useState<{
     field: string;
@@ -28,7 +37,6 @@ export const BookingsPage = () => {
     direction: 'desc',
   });
 
-  const { response } = getBookings(true);
   const bookings = response?.data || [];
 
   const handleFilterChange = (name: keyof Filters, value: string) =>
@@ -88,6 +96,39 @@ export const BookingsPage = () => {
     setIsModalOpen(true);
   };
 
+  const handleDeleteConfirmed = () => {
+    if (delID) {
+      bookingDeleteMutate(delID, {
+        onSuccess: () => {
+          refetch
+          toast.success('Booking deleted successfully!');
+        },
+        onError: (error) => {
+          toast.error('Failed to delete booking');
+          console.error('Delete failed:', error);
+        },
+      });
+    }
+    setIsDeleteDialogOpen(false);
+  };
+
+  const handleDeleteCancelled = () => {
+    setIsDeleteDialogOpen(false);
+    toast.info('Deletion cancelled');
+  };
+
+  const handleDialogOpen = () => setIsDeleteDialogOpen(true);
+  const handleDialogClose = () => setIsDeleteDialogOpen(false);
+
+  const handleDelete = (id: string) => {
+    setIsDeleteDialogOpen(true);
+    setTitle('Confirm Deletion');
+    setDescription('Are you sure you want to delete this package?');
+    setAgreeButtonText('Delete');
+    setDisagreeButtonText('Cancel');
+    setDelID(id);
+  };
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-gray-100 p-6">
@@ -102,7 +143,7 @@ export const BookingsPage = () => {
           />
 
           <Table
-            columns={bookingColumns({ handleView })}
+            columns={bookingColumns({ handleView, handleDelete })}
             data={sortedBookings}
             keyExtractor={(b) => b.id}
             defaultSort={sortConfig}
@@ -114,6 +155,24 @@ export const BookingsPage = () => {
             isOpen={isModalOpen}
             setIsClose={setIsModalOpen}
             bookingDetails={selectedBooking}
+          />
+          <AlertDialogSlide
+            open={isDeleteDialogOpen}
+            handleAgree={handleDeleteConfirmed}
+            handleDisagree={handleDeleteCancelled}
+            handleClickOpen={handleDialogOpen}
+            onClose={handleDialogClose}
+            handleClose={handleDialogClose}
+            title={title}
+            description={description}
+            agreeButtonText={agreeButtonText}
+            disagreeButtonText={disagreeButtonText}
+            aColor='error'
+            aVariant='contained'
+            aSize='small'
+            dColor='primary'
+            dVariant='outlined'
+            dSize='small'
           />
         </div>
       </div>

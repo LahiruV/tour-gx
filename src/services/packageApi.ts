@@ -3,7 +3,7 @@ import { PackageFormData } from '@zenra/models';
 import axios, { AxiosError } from 'axios';
 
 export const usePackage = () => {
-    const { mutate: packageAddMutate, ...addRest } = useMutation({
+    const { mutate: packageAddMutate, ...addMutate } = useMutation({
         mutationFn: async (payload: PackageFormData) => {
             const response = await axios.post<PackageFormData>(
                 `${import.meta.env.VITE_API_URL}/packages/add`,
@@ -13,10 +13,10 @@ export const usePackage = () => {
         },
         onSuccess: (response: PackageFormData) => response,
         onError: (err: AxiosError) => err,
-        mutationKey: ['package add'],
+        mutationKey: ['package-add'],
     });
 
-    const { mutate: packageUpdateMutate, ...updateRest } = useMutation({
+    const { mutate: packageUpdateMutate, ...updateMutate } = useMutation({
         mutationFn: async (payload: PackageFormData) => {
             const response = await axios.put<PackageFormData>(
                 `${import.meta.env.VITE_API_URL}/packages/update`,
@@ -26,26 +26,26 @@ export const usePackage = () => {
         },
         onSuccess: (response: PackageFormData) => response,
         onError: (err: AxiosError) => err,
-        mutationKey: ['package update'],
+        mutationKey: ['package-update'],
     });
 
-    const { mutate: packageDeleteMutate, ...deleteRest } = useMutation({
+    const { mutate: packageDeleteMutate, ...deleteMutate } = useMutation({
         mutationFn: async (id: string) => {
             const response = await axios.delete(`${import.meta.env.VITE_API_URL}/packages/delete/${id}`);
             return response.data;
         },
         onSuccess: (response: PackageFormData) => response,
         onError: (err: AxiosError) => err,
-        mutationKey: ['package delete'],
+        mutationKey: ['package-delete'],
     });
 
     return {
         packageAddMutate,
+        ...addMutate,
         packageUpdateMutate,
+        ...updateMutate,
         packageDeleteMutate,
-        ...deleteRest,
-        ...addRest,
-        ...updateRest,
+        ...deleteMutate,
     };
 };
 
@@ -68,18 +68,3 @@ export const getPackages = (isExecute: boolean) => {
         refetch
     };
 };
-
-// export const useUpdatePackage = () => {
-//     const { mutate: packageUpdateMutate } = useMutation({
-//         mutationFn: async (payload: PackageFormData) => {
-//             const response = await axios.put<PackageFormData>(`${import.meta.env.VITE_API_URL}/package/update`, payload);
-//             return response.data;
-//         },
-//         onSuccess: (response: PackageFormData) => response,
-//         onError: (err: AxiosError) => err,
-//         mutationKey: ['package update'],
-//     });
-//     return {
-//         packageUpdateMutate,
-//     };
-// }
