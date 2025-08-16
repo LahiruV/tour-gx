@@ -6,6 +6,7 @@ import { Package, Column, PackageFormData } from '@zenra/models';
 import { toast } from 'sonner';
 import { AdminPackageForm } from './PackageForm';
 import { getPackages, usePackage } from '@zenra/services';
+import { packageColumns } from './PackageColumns';
 
 const initialFormData: PackageFormData = {
     title: '',
@@ -97,68 +98,7 @@ export const AdminPackagesPage = () => {
     };
 
 
-    const columns: Column<Package>[] = [
-        {
-            id: 'image',
-            label: 'Image',
-            render: (pkg) => (
-                <img
-                    src={`data:image/png;base64,${pkg.image}`}
-                    alt={pkg.title}
-                    className="w-16 h-16 object-cover rounded-lg"
-                />
-            ),
-            width: 80
-        },
-        {
-            id: 'title',
-            label: 'Title',
-            sortable: true,
-        },
-        {
-            id: 'duration',
-            label: 'Duration',
-            sortable: true,
-        },
-        {
-            id: 'groupSize',
-            label: 'Group Size',
-        },
-        {
-            id: 'price',
-            label: 'Price',
-            render: (pkg) => `$${pkg.price}`,
-            sortable: true,
-            align: 'right',
-        },
-        {
-            id: 'actions',
-            label: 'Actions',
-            align: 'right',
-            render: (pkg) => (
-                <div className="flex justify-end space-x-2">
-                    <button
-                        onClick={() => handleView(pkg)}
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                    >
-                        <EyeIcon className="h-4 w-4" />
-                    </button>
-                    <button
-                        onClick={() => handleEdit(pkg)}
-                        className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
-                    >
-                        <PencilIcon className="h-4 w-4" />
-                    </button>
-                    <button
-                        onClick={() => handleDelete(pkg.id ?? '')}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                    >
-                        <TrashIcon className="h-4 w-4" />
-                    </button>
-                </div>
-            ),
-        },
-    ];
+
 
     return (
         <PageTransition>
@@ -176,7 +116,7 @@ export const AdminPackagesPage = () => {
                     </div>
 
                     <Table
-                        columns={columns}
+                        columns={packageColumns({ handleView, handleEdit, handleDelete })}
                         data={packages}
                         keyExtractor={(pkg) => pkg.id ?? ''}
                         defaultSort={{ field: 'title', direction: 'asc' }}
